@@ -9,7 +9,7 @@ export default class BaseShapeClass{
 
     // x, y is the center of the shape
     // h, w are effect width, height of the bounding box
-    constructor(name,x,y,h,w){
+    constructor(name,x,y,w,h){
         this.name = name;
         this.positionX = x;
         this.positionY = y;
@@ -17,17 +17,23 @@ export default class BaseShapeClass{
         this.width = w;
     }
 
-    drawShape(){
+    // logics for drawing the shape in normal display mode
+    drawShapeDisplayMode(){
         throw Error('Not implemented')
+    }
+
+    // logics for drawing the shape in edit shape mode
+    drawShapeEditMode(){
+        throw Error("Not implemented")
     }
 
     // function to check the object is clicked or not
     isClicked(mouseX, mouseY){
         if(
-            positionX - width/2 < mouseX && 
-            positionX + width/2 > mouseX &&
-            positionY - height/2 < mouseY &&
-            positionY + height/2 > mouseY
+            this.positionX - this.width/2 < mouseX && 
+            this.positionX + this.width/2 > mouseX &&
+            this.positionY - this.height/2 < mouseY &&
+            this.positionY + this.height/2 > mouseY
         ){
             return true
         }
@@ -38,6 +44,7 @@ export default class BaseShapeClass{
     highLight(){
         push()
         drawingContext.setLineDash([5, 5]);
+        fill(0,0,0,0)
         rect(
             this.positionX - this.width/2,
             this.positionY - this.height/2,
@@ -48,10 +55,12 @@ export default class BaseShapeClass{
     }
 
     // this function is called at each drawing frame
-    draw(isHighlighted){
-        if(isHighlighted){
+    draw(isSelected){
+        if(isSelected){
             this.highLight()
+            this.drawShapeEditMode()
+        } else {
+            this.drawShapeDisplayMode()
         }
-        this.drawShape()
     }
 }

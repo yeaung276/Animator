@@ -4,6 +4,8 @@ import BasicShape from './tools/basicShapeTool.js';
 export default class App {
     shapes = {}
 
+    selectedShape = null
+
     constructor(){
         this.content = $('#content');
         this.toolbox = new Toolbox();
@@ -18,13 +20,18 @@ export default class App {
 
     draw(){
         Object.values(this.shapes).forEach((obj) => {
-            obj.draw()
+            obj.draw(obj.name === this.selectedShape?.name)
         })
     }
 
     onMousePressed(posX, posY){
         if(this.toolbox?.selectedTool){
+            // invoke drawing code if drawing tool is selected
             this.toolbox?.selectedTool?.onDrawStart(posX, posY)
+        } else {
+            // invoke select tool if drawing tool is not selected
+            const shapes = Object.values(this.shapes).filter((s) => s.isClicked(posX, posY))
+            this.selectedShape = shapes[0]
         }
     }
 

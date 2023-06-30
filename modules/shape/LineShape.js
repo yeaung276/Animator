@@ -9,10 +9,19 @@ export default class LineShape extends BaseShapeClass{
         this.y_e = y_e
     }
 
-    drawShape(){
+    drawShapeDisplayMode(){
         push()
         stroke(1)
         line(this.x, this.y, this.x_e, this.y_e)
+        pop()
+    }
+
+    drawShapeEditMode(){
+        push()
+        stroke(1)
+        line(this.x, this.y, this.x_e, this.y_e)
+        rect(this.x, this.y, 10, 10)
+        rect(this.x_e, this.y_e, 10, 10)
         pop()
     }
 }
