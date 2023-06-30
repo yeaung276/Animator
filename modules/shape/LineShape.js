@@ -14,14 +14,15 @@ export default class LineShape extends BaseShapeClass{
         stroke(1)
         line(this.x, this.y, this.x_e, this.y_e)
         pop()
+        fill(0)
     }
 
     drawShapeEditMode(){
         push()
         stroke(1)
         line(this.x, this.y, this.x_e, this.y_e)
-        rect(this.x, this.y, 10, 10)
-        rect(this.x_e, this.y_e, 10, 10)
+        rect(this.x - 5, this.y - 5, 10, 10)
+        rect(this.x_e - 5, this.y_e - 5, 10, 10)
         pop()
     }
 }

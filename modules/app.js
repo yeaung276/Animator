@@ -16,6 +16,9 @@ export default class App {
         this.toolbox.addTool(new BasicShape())
         this.canvas = createCanvas(this.content.width(), this.content.height());
         this.canvas.parent("content");
+        this.canvas.doubleClicked(function(){
+            this.onDoubleClicked(mouseX, mouseY)
+        })
     }
 
     draw(){
@@ -28,10 +31,6 @@ export default class App {
         if(this.toolbox?.selectedTool){
             // invoke drawing code if drawing tool is selected
             this.toolbox?.selectedTool?.onDrawStart(posX, posY)
-        } else {
-            // invoke select tool if drawing tool is not selected
-            const shapes = Object.values(this.shapes).filter((s) => s.isClicked(posX, posY))
-            this.selectedShape = shapes[0]
         }
     }
 
@@ -44,8 +43,17 @@ export default class App {
     onMouseRelease(posX, posY){
         if(this.toolbox?.selectTool){
             const shape = this.toolbox?.selectedTool?.onDrawEnd(posX, posY)
+            // if drawing tool create a shape, add it to the globe shape object
             shape && (this.shapes[shape.name] = shape)
+            // select and highlight the newest draw shape
+            this.selectedShape = shape
         }
 
+    }
+
+    onDoubleClicked(x,y){
+        const shapes = Object.values(this.shapes).filter((s) => s.isClicked(x,y)).sort();
+        this.selectedShape = shapes[0]
+        
     }
 }

@@ -58,3 +58,8 @@ window.mouseReleased = function () {
 	isMouseHold = false
 	app.onMouseRelease(mouseX, mouseY)
 }
+
+// p5js doubleclick function is not working. So jquery is used
+$("#content").dblclick(() => {
+	app.onDoubleClicked(mouseX, mouseY)
+})
