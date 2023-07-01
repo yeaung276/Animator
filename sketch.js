@@ -11,6 +11,8 @@ var isMouseHold = false
 
 window.setup = function setup() {
 	app.setup()
+	const slider = createSlider().parent('slider')
+	slider.style("width", "100%")
 	// //create a canvas to fill the content div from index.html
 	// canvasContainer = select('#content');
 	// var c = createCanvas(canvasContainer.size().width, canvasContainer.size().height);
@@ -50,15 +52,19 @@ window.draw = function draw() {
 	// }
 }
 
-window.mousePressed = function () {
-	isMouseHold = true
-	app.onMousePressed(mouseX, mouseY)
-}
+// window.mousePressed = function () {
+// 	isMouseHold = true
+// 	app.onMousePressed(mouseX, mouseY)
+// }
 
-window.mouseReleased = function () {
-	isMouseHold = false
-	app.onMouseRelease(mouseX, mouseY)
-}
+// window.mouseReleased = function () {
+// 	isMouseHold = false
+// 	app.onMouseRelease(mouseX, mouseY)
+// }
+
+// window.mouseDragged = function(){
+// 	app.onMouseHold(mouseX, mouseY)
+// }
 
 // p5js doubleclick function is not working. So jquery is used
 $("#content").dblclick(() => {

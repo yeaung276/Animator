@@ -57,7 +57,7 @@ html, body {
 	grid-template-areas:
 			"header header header header"
 			"sidebar content content properties"
-			"colourP colourP options options";
+			"options options options options";
 	background-color: #fff;
 	color: #444;
 }
@@ -87,4 +87,12 @@ html, body {
 
 .header {
   background-color: #999;
+}
+
+/* animations */
+.animation-slider {
+	display: flex;
+}
+.animation-slider .slider {
+	flex-grow: 1;
 }

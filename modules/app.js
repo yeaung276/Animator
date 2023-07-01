@@ -7,6 +7,8 @@ export default class App {
 
     selectedShape = null
 
+    isMouseHold = false
+
     constructor(){
         this.content = $('#content');
         this.toolbox = new Toolbox();
@@ -17,9 +19,25 @@ export default class App {
         this.toolbox.addTool(new BasicShape())
         this.canvas = createCanvas(this.content.width(), this.content.height());
         this.canvas.parent("content");
+
+        // mouse control logics for click, release and hold
+        this.canvas.mousePressed(() => {
+            this.isMouseHold = true
+            this.onMousePressed(mouseX, mouseY)
+        })
+        this.canvas.mouseReleased(() => {
+            this.isMouseHold = false
+            this.onMouseRelease(mouseX, mouseY)
+        })
+
     }
 
     draw(){
+        // controller logics
+        if(this.isMouseHold){
+            this.onMouseHold(mouseX, mouseY)
+        }
+        // end of controller logic
         this.editor.selectedShape = this.selectedShape
         Object.values(this.shapes).forEach((obj) => {
             obj.draw(obj.name === this.selectedShape?.name)
