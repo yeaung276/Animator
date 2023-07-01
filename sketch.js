@@ -37,6 +37,7 @@ window.draw = function draw() {
 	if(isMouseHold){
 		app.onMouseHold(mouseX, mouseY)
 	}
+	app.onHover(mouseX, mouseY)
 	app.draw()
 	//call the draw function from the selected tool.
 	//hasOwnProperty is a javascript function that tests

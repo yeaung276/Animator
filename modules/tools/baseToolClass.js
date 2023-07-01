@@ -1,3 +1,5 @@
+// This class hold common code that all tool class inherit
+// All tool class must extend this base class
 export default class BaseToolClass {
     // name of the tool
     name;
