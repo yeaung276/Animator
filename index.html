@@ -5,6 +5,7 @@
     <script src="lib/p5.dom.js"></script>
     <script src="lib/uuid.min.js"></script>
     <script src="lib/jquery-3.7.0.min.js"></script>
+    <script src="lib/lodash.min.js"></script>
 
     <script type="module" src="sketch.js"></script>
 
@@ -27,6 +28,7 @@
         <span>
           <button id="clearButton">Clear</button>
           <button id="saveImageButton">Save Image</button>
+          <button id="example-btn">Example</button>
         </span>
       </div>
       <div class="box sidebar" id="sidebar"></div>
@@ -35,10 +37,12 @@
       <div class="box options">
         <div class="animation-slider">
           <div>
-            <button>record</button>
-            <button>plal</button>
+            <button id="play-btn">play</button>
           </div>
           <div class="slider" id="slider"></div>
+        </div>
+        <div class="shape-animation-space" id="animation-pane">
+
         </div>
       </div>
 	</div>

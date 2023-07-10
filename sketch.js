@@ -11,8 +11,6 @@ var isMouseHold = false
 
 window.setup = function setup() {
 	app.setup()
-	const slider = createSlider().parent('slider')
-	slider.style("width", "100%")
 	// //create a canvas to fill the content div from index.html
 	// canvasContainer = select('#content');
 	// var c = createCanvas(canvasContainer.size().width, canvasContainer.size().height);

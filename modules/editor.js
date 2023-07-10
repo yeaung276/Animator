@@ -3,11 +3,28 @@ export default class Editor{
 
     isEditing = false
 
-    constructor(){}
+    constructor(animator){
+        this.animator = animator
+    }
+
+    draw(t){
+        if(this.selectedShape){
+            const editPoints = this.selectedShape.editPoints
+            push();
+            fill(0);
+            // draw the edit points if the shape is selected for edit
+
+            editPoints.forEach((v) => {
+              rect(v.x - 5, v.y - 5, 10, 10);
+            });
+            pop();
+        }
+    }
 
     // get the vertex the mouse Hover
     getHoverVertex(mouseX, mouseY){
-        return this.selectedShape.vertices.find((v) => dist(v.x, v.y, mouseX, mouseY) < 10)
+        const editPoints = this.selectedShape?.editPoints
+        return editPoints.find((v) => dist(v.x, v.y, mouseX, mouseY) < 10)
     }
 
     hover(mouseX, mouseY){
@@ -42,6 +59,7 @@ export default class Editor{
         if(this.isEditing && this.vertex){
             this.isEditing = false
             this.vertex = null
+            this.animator?.onEdit(this.selectedShape.editPoints)
         }
     }
 }

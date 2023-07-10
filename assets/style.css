@@ -92,7 +92,23 @@ html, body {
 /* animations */
 .animation-slider {
 	display: flex;
+	height: 30px;
+	margin-bottom: .3rem
 }
 .animation-slider .slider {
 	flex-grow: 1;
+}
+
+.v-line {
+	position: absolute;
+	width: 5px;
+	background-color: red;
+}
+.v-line:hover{
+	cursor: col-resize
+}
+
+.shape-animation-space {
+	height: 200px;
+	overflow-y: scroll;
 }

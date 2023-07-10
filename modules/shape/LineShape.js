@@ -8,11 +8,11 @@ export default class LineShape extends BaseShapeClass {
     ]);
   }
 
-  drawShape() {
+  drawShape(vertices) {
     push();
     stroke(1);
     beginShape();
-    this.vertices.forEach((v) => {
+    vertices.forEach((v) => {
       vertex(v.x, v.y);
     });
     endShape();

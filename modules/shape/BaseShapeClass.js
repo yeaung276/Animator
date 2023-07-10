@@ -3,19 +3,15 @@
 export default class BaseShapeClass {
   name;
 
-  vertices = [];
+  editPoints = []
+
+  keyFrames = {};
 
   // x, y is the center of the shape
   // h, w are effect width, height of the bounding box
   constructor(name, vertices) {
     this.name = name;
-    this.vertices = vertices;
-    const xinf = this.getX();
-    const yinf = this.getY();
-    this.positionX = xinf.x;
-    this.positionY = yinf.y;
-    this.height = yinf.height;
-    this.width = xinf.width;
+    this.editPoints = vertices;
   }
 
   getX() {
@@ -23,7 +19,7 @@ export default class BaseShapeClass {
     // x and width
     var max = 0;
     var min = 99999;
-    this.vertices.forEach((v) => {
+    this.editPoints.forEach((v) => {
       min = Math.min(min, v.x);
       max = Math.max(max, v.x);
     });
@@ -36,7 +32,7 @@ export default class BaseShapeClass {
   getY() {
     var max = 0;
     var min = 99999;
-    this.vertices.forEach((v) => {
+    this.editPoints.forEach((v) => {
       min = Math.min(min, v.y);
       max = Math.max(max, v.y);
     });
@@ -52,7 +48,7 @@ export default class BaseShapeClass {
   }
 
   // function to check the object is clicked or not
-  isClicked(x, y) {
+  isClicked(x, y, t) {
     const { x: posX, width } = this.getX();
     const { y: posY, height } = this.getY();
 
@@ -83,23 +79,41 @@ export default class BaseShapeClass {
     pop();
   }
 
+  // calculate editPoint at Each timeframe
+  getEditPoints(t){
+    const timeTicks = Object.keys(this.keyFrames).map(x => parseInt(x, 10))
+    timeTicks.sort((a,b) => a-b)
+    const nextTickIndex = timeTicks.findIndex(x => parseInt(x, 10) > parseInt(t))
+    const nextTick = timeTicks[nextTickIndex]
+    const previousTick = timeTicks[nextTickIndex - 1]
+    
+    const interPolatedVertices = []
+    for(var i=0;i<this.editPoints.length;i++){
+      const prev = this.keyFrames[previousTick]
+      const next = this.keyFrames[nextTick]
+      if(!next){
+        const vertex = {
+          x: this.keyFrames[timeTicks[timeTicks.length - 1]][i].x,
+          y: this.keyFrames[timeTicks[timeTicks.length - 1]][i].y
+        }
+        interPolatedVertices.push(vertex)
+        continue
+      }
+      const vertex = {
+        x: map(t, previousTick, nextTick, prev?.[i].x, next?.[i].x),
+        y: map(t, previousTick, nextTick, prev?.[i].y, next?.[i].y)
+      }
+      interPolatedVertices.push(vertex)
+    }
+    return interPolatedVertices
+  }
+
   // this function is called at each drawing frame
   draw(isSelected) {
     if (isSelected) {
-      this.highLight();
-      push();
-      fill(0);
-      // draw the edit points if the shape is selected for edit
-      this.vertices.forEach((v) => {
-        rect(v.x - 5, v.y - 5, 10, 10);
-      });
-      pop();
+      this.highLight(this.editPoints);
     }
     // draw the shape
-    this.drawShape();
-  }
-
-  record(vertices) {
-    this.vertices = vertices;
+    this.drawShape(this.editPoints);
   }
 }
