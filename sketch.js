@@ -6,7 +6,6 @@
 import App from './modules/app.js';
 
 const app = new App()
-var isMouseHold = false
 
 
 window.setup = function setup() {
@@ -34,10 +33,6 @@ window.setup = function setup() {
 
 window.draw = function draw() {
 	background(255, 255, 255);
-	if(isMouseHold){
-		app.onMouseHold(mouseX, mouseY)
-	}
-	app.onHover(mouseX, mouseY)
 	app.draw()
 	//call the draw function from the selected tool.
 	//hasOwnProperty is a javascript function that tests
@@ -49,22 +44,3 @@ window.draw = function draw() {
 	// 	alert("it doesn't look like your tool has a draw method!");
 	// }
 }
-
-// window.mousePressed = function () {
-// 	isMouseHold = true
-// 	app.onMousePressed(mouseX, mouseY)
-// }
-
-// window.mouseReleased = function () {
-// 	isMouseHold = false
-// 	app.onMouseRelease(mouseX, mouseY)
-// }
-
-// window.mouseDragged = function(){
-// 	app.onMouseHold(mouseX, mouseY)
-// }
-
-// p5js doubleclick function is not working. So jquery is used
-$("#content").dblclick(() => {
-	app.onDoubleClicked(mouseX, mouseY)
-})
