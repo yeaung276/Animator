@@ -33,7 +33,41 @@
       </div>
       <div class="box sidebar" id="sidebar"></div>
       <div id="content"></div>
-      <div class="properties" id="properties"></div>
+      <div class="properties" id="properties">
+        <div style="text-align: center;font-weight: bold">Properties</div>
+        <div class="properties-field">
+          <label>position x</label>
+          <input id="pos-x" type="number" disabled />
+        </div>
+        <div class="properties-field">
+          <label>position y</label>
+          <input id="pos-y" type="number" disabled />
+        </div>
+        <div class="properties-field">
+          <label>Stroke style</label><br/>
+          <select id="stroke-style">
+            <option value="solid">Solid</option>
+            <option value="dash">Dash</option>
+            <option value="dotted">Dotted</option>
+          </select>
+        </div>
+        <div class="properties-field">
+          <label>Stroke weight</label>
+          <input id="stroke-weight" type="number" />
+        </div>
+        <div class="properties-field">
+          <label>Opacity</label>
+          <input id="opacity" type="range" />
+        </div>
+        <div class="properties-field justify-between">
+          <label>Stroke color</label>
+          <input id="stroke-color" type="color" />
+        </div>
+        <div class="properties-field justify-between">
+          <label>Fill color</label>
+          <input id="fill-color" type="color" />
+        </div>
+      </div>
       <div class="box options">
         <div class="animation-slider">
           <div>

@@ -5,6 +5,14 @@ export default class BaseShapeClass {
 
   currentEditPoints = []
 
+  currentProperties = {
+    strokeStyle: 'solid',
+    strokeWeight: 1,
+    strokeColor: [0,0,0],
+    fillColor: [0,0,0],
+    opacity: 255,
+  }
+
   keyFrames = {};
 
   // x, y is the center of the shape
@@ -30,6 +38,8 @@ export default class BaseShapeClass {
   }
 
   getY() {
+    // find min and max vertex point vertically and calculate
+    // y and height
     var max = 0;
     var min = 99999;
     this.currentEditPoints.forEach((v) => {
@@ -114,6 +124,21 @@ export default class BaseShapeClass {
       this.highLight(this.currentEditPoints);
     }
     // draw the shape
+    push()
+    stroke(...this.currentProperties.strokeColor, this.currentProperties.opacity);
+    strokeWeight(this.currentProperties.strokeWeight);
+    fill(...this.currentProperties.fillColor, this.currentProperties.opacity)
+    switch(this.currentProperties.strokeStyle){
+      case 'dash':
+        drawingContext.setLineDash([15,5])
+        break
+      case 'dotted':
+        drawingContext.setLineDash([3,3])
+        break
+      default:
+        drawingContext.setLineDash([])
+    }
     this.drawShape(this.currentEditPoints);
+    pop()
   }
 }

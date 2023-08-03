@@ -52,11 +52,13 @@ export default class App {
     this.animator.addShapeToAnimatorBar(shape);
     // select and highlight the newest draw shape
     this.selectedShape = shape;
+    // set values to editor panal
+    this.editor.updatePropertiesValues(this.selectedShape)
   }
 
   // life cycle methods
   onHover(posX, posY) {
-    this.editor.hover(posX, posY);
+    this.editor.onHover(posX, posY);
   }
 
   onMousePressed(posX, posY) {
@@ -101,24 +103,9 @@ export default class App {
       (shape) => shape.name === this.selectedShape?.name
     );
     this.selectedShape = shapes[selectedShapeIndex + 1];
+    if(this.selectedShape){
+      // set properties values to Properties/Editor panal
+      this.editor.updatePropertiesValues(this.selectedShape)
+    }
   }
-
-  // loadExample(){
-  //     const shape = new LineShape()
-  //     shape.editPoints = [
-  //         {x: 677.2428140299412, y: 173.11817839603034},
-  //         {x: 706.252947141422, y: 129.0913037604618}
-  //     ]
-  //     shape.keyFrames = {
-  //         0: [{x: 172.0663581231192, y: 125.08886061177378},{x: 172.0663581231192, y: 143.09985478086998}],
-  //         17: [{x: 172.0663581231192, y: 125.08886061177378},{x: 168.06496045257012, y: 611.3857031773714}],
-  //         34: [{x: 172.0663581231192, y: 125.08886061177378},{x: 654.234777424284, y: 390.25071921235684}],
-  //         45: [{x: 172.0663581231192, y: 125.08886061177378},{x: 706.252947141422, y: 129.0913037604618}],
-  //         60: [{x: 454.1648938968297, y: 447.28553408116153},{x: 706.252947141422, y: 129.0913037604618}],
-  //         72: [{x: 677.2428140299412, y: 173.11817839603034},{x: 706.252947141422, y: 129.0913037604618}]
-  //     }
-  //     shape.name = 'example'
-  //     this.shapes['example'] = shape
-  //     this.animator.addShapeToAnimatorBar(shape)
-  // }
 }

@@ -77,6 +77,24 @@ html, body {
 .properties {
 	border: solid 1px grey;
 	background-color: #dfdfdf;
+	padding: 1rem;
+}
+
+.properties input{
+	padding: .3rem;
+}
+.properties select{
+	padding: .3rem;
+	width: 100%;
+}
+
+.properties-field{
+  margin: 1rem 0;
+}
+
+.justify-between{
+	display: flex;
+	justify-content: space-between;
 }
 
 .box {

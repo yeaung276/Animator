@@ -3,6 +3,10 @@ uuid
 jquery
 p5js
 
+hexToRGB 
+https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
+
+
 
 features
 
