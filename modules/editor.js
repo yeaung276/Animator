@@ -1,7 +1,11 @@
+const GRAB = 'grab';
+const GRABBING = 'grabbing';
 export default class Editor{
     selectedShape = null
 
     isEditing = false
+    
+    isGrabbing = false
 
     constructor(animator){
         this.animator = animator
@@ -9,7 +13,7 @@ export default class Editor{
 
     draw(t){
         if(this.selectedShape){
-            const editPoints = this.selectedShape.editPoints
+            const editPoints = this.selectedShape.currentEditPoints
             push();
             fill(0);
             // draw the edit points if the shape is selected for edit
@@ -23,7 +27,7 @@ export default class Editor{
 
     // get the vertex the mouse Hover
     getHoverVertex(mouseX, mouseY){
-        const editPoints = this.selectedShape?.editPoints
+        const editPoints = this.selectedShape?.currentEditPoints
         return editPoints.find((v) => dist(v.x, v.y, mouseX, mouseY) < 10)
     }
 
@@ -32,8 +36,13 @@ export default class Editor{
             // change cursor to multidirection edit icon if hover over vertices
             // of selected shape
             if(this.getHoverVertex(mouseX, mouseY)){
+                // move the vertex
                 cursor(MOVE);
+            } else if(this.selectedShape.isClicked(mouseX, mouseY)){
+                // move the shape
+                cursor(GRAB)
             } else{
+                // reset cursor
                 cursor(ARROW);
             }
         } else{
@@ -42,9 +51,14 @@ export default class Editor{
     }
 
     onPressed(mouseX, mouseY){
+        // move the vertices
         if(this.selectedShape && this.getHoverVertex(mouseX, mouseY)){
             this.isEditing = true
             this.vertex = this.getHoverVertex(mouseX, mouseY)
+        // moving the shape
+        } else if(this.selectedShape && this.selectedShape.isClicked(mouseX, mouseY)){
+            this.isGrabbing = true;
+            cursor(GRABBING)
         }
     }
 
@@ -53,13 +67,27 @@ export default class Editor{
             this.vertex.x = mouseX
             this.vertex.y = mouseY
         }
+        if(this.isGrabbing && this.selectedShape){
+            const dX = mouseX - pmouseX
+            const dY = mouseY - pmouseY
+            this.selectedShape.currentEditPoints.forEach((v) => {
+                v.x += dX
+                v.y += dY
+            })
+        }
     }
 
     onRelease(mouseX, mouseY){
+        // editing the vertices
         if(this.isEditing && this.vertex){
             this.isEditing = false
             this.vertex = null
-            this.animator?.onEdit(this.selectedShape.editPoints)
+            this.animator?.onEdit(this.selectedShape.currentEditPoints)
+        }
+        // moving the shapes
+        if(this.isGrabbing && this.selectedShape){
+            this.isGrabbing = false
+            this.animator?.onEdit(this.selectedShape.currentEditPoints)
         }
     }
 }

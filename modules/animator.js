@@ -75,7 +75,7 @@ export default class Animator {
 
   updateShapeEditpoints(){
     Object.values(this.shapes).forEach((shape) => {
-      shape.editPoints = shape.getEditPoints(this.time)
+      shape.currentEditPoints = shape.getEditPoints(this.time)
     })
   }
 
@@ -94,7 +94,7 @@ export default class Animator {
     // add current time ticks
     this.addTick(shape.name, "selected-time", this.time);
     this.sync(shape)
-    shape.keyFrames[0] = shape.editPoints
+    shape.keyFrames[0] = shape.currentEditPoints
 
   }
 

@@ -36,11 +36,9 @@ export default class App {
   draw() {
     this.controller.update();
 
-    if (this.selectedShape) {
-      this.editor.selectedShape = this.selectedShape;
-      this.editor.draw(this.animator.time);
-    }
-    // animator logics
+    this.editor.selectedShape = this.selectedShape;
+    this.editor.draw(this.animator.time);
+
     this.animator.selectedShape = this.selectedShape;
     this.animator.update();
 
@@ -65,8 +63,7 @@ export default class App {
     if (this.selectedShape) {
       // invoke editor press if there is selected shape
       this.editor.onPressed(posX, posY);
-    }
-    if (this.toolbox?.selectedTool && !this.editor.isEditing) {
+    } else if (this.toolbox?.selectedTool) {
       // invoke drawing code if drawing tool is selected and
       // there is no editing
       this.toolbox?.selectedTool?.onDrawStart(posX, posY);
@@ -74,11 +71,10 @@ export default class App {
   }
 
   onMouseHold(posX, posY) {
-    if (this.selectedShape && this.editor.isEditing) {
+    if (this.selectedShape) {
       // if there is shape selected, mouse drag means editing the shape
       this.editor.onDrag(posX, posY);
-    }
-    if (this.toolbox?.selectedTool && !this.editor.isEditing) {
+    } else if (this.toolbox?.selectedTool) {
       // invode drawing code if drawing tool is selected and
       // there is no editing
       this.toolbox?.selectedTool?.onDraw(posX, posY);
@@ -86,18 +82,18 @@ export default class App {
   }
 
   onMouseRelease(posX, posY) {
-    if (this.toolbox?.selectTool && !this.editor.isEditing) {
+    if (this.selectedShape) {
+        this.editor.onRelease(posX, posY);
+    } else if (this.toolbox?.selectTool) {
       const shape = this.toolbox?.selectedTool?.onDrawEnd(posX, posY);
       // if drawing tool create a shape, add it to the globe shape object
       shape && this.addShape(shape);
-    }
-    if (this.selectedShape) {
-      this.editor.onRelease(posX, posY);
     }
   }
 
   onDoubleClicked(x, y) {
     // select shape on double clicked
+    // get all the shape that was affected by the click and iterage throught on each subsequence click
     const shapes = Object.values(this.shapes)
       .filter((s) => s.isClicked(x, y, this.animator.time))
       .sort((x, y) => x.name.localeCompare(y.name));

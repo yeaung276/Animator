@@ -3,7 +3,7 @@
 export default class BaseShapeClass {
   name;
 
-  editPoints = []
+  currentEditPoints = []
 
   keyFrames = {};
 
@@ -11,7 +11,7 @@ export default class BaseShapeClass {
   // h, w are effect width, height of the bounding box
   constructor(name, vertices) {
     this.name = name;
-    this.editPoints = vertices;
+    this.currentEditPoints = vertices;
   }
 
   getX() {
@@ -19,7 +19,7 @@ export default class BaseShapeClass {
     // x and width
     var max = 0;
     var min = 99999;
-    this.editPoints.forEach((v) => {
+    this.currentEditPoints.forEach((v) => {
       min = Math.min(min, v.x);
       max = Math.max(max, v.x);
     });
@@ -32,7 +32,7 @@ export default class BaseShapeClass {
   getY() {
     var max = 0;
     var min = 99999;
-    this.editPoints.forEach((v) => {
+    this.currentEditPoints.forEach((v) => {
       min = Math.min(min, v.y);
       max = Math.max(max, v.y);
     });
@@ -48,7 +48,7 @@ export default class BaseShapeClass {
   }
 
   // function to check the object is clicked or not
-  isClicked(x, y, t) {
+  isClicked(x, y) {
     const { x: posX, width } = this.getX();
     const { y: posY, height } = this.getY();
 
@@ -88,7 +88,7 @@ export default class BaseShapeClass {
     const previousTick = timeTicks[nextTickIndex - 1]
     
     const interPolatedVertices = []
-    for(var i=0;i<this.editPoints.length;i++){
+    for(var i=0;i<this.currentEditPoints.length;i++){
       const prev = this.keyFrames[previousTick]
       const next = this.keyFrames[nextTick]
       if(!next){
@@ -111,9 +111,9 @@ export default class BaseShapeClass {
   // this function is called at each drawing frame
   draw(isSelected) {
     if (isSelected) {
-      this.highLight(this.editPoints);
+      this.highLight(this.currentEditPoints);
     }
     // draw the shape
-    this.drawShape(this.editPoints);
+    this.drawShape(this.currentEditPoints);
   }
 }
