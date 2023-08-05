@@ -22,11 +22,13 @@ export default class Editor {
         this.selectedShape.currentProperties.strokeColor = hexToRGB(
           e.target.value
         );
+        this.onEditSelectedShape()
       }
     });
     this.strokeWeight.change((e) => {
       if (this.selectedShape) {
         this.selectedShape.currentProperties.strokeWeight = e.target.value;
+        this.onEditSelectedShape()
       }
     });
     this.opacity.change((e) => {
@@ -38,11 +40,13 @@ export default class Editor {
           1,
           255
         );
+        this.onEditSelectedShape()
       }
     });
     this.strokeStyle.change((e) => {
       if (this.selectedShape) {
         this.selectedShape.currentProperties.strokeStyle = e.target.value;
+        this.onEditSelectedShape()
       }
     });
   }
@@ -61,7 +65,7 @@ export default class Editor {
     }
   }
 
-  updatePropertiesValues(shape) {
+  updatePropertiesValuesDisplay(shape) {
     this.strokeStyle.val(shape.currentProperties.strokeStyle);
     this.strokeWeight.val(shape.currentProperties.strokeWeight);
     this.opacity.val(shape.currentProperties.opacity);
@@ -75,6 +79,12 @@ export default class Editor {
   }
 
   // mouse lifecycle events
+  onEditSelectedShape(){
+    this.animator.onEdit(
+      this.selectedShape.currentEditPoints,
+      this.selectedShape.currentProperties
+    );
+  }
 
   onHover(mouseX, mouseY) {
     if (this.selectedShape) {
@@ -132,12 +142,12 @@ export default class Editor {
     if (this.isEditing && this.vertex) {
       this.isEditing = false;
       this.vertex = null;
-      this.animator?.onEdit(this.selectedShape.currentEditPoints);
+      this.onEditSelectedShape()
     }
     // moving the shapes
     if (this.isGrabbing && this.selectedShape) {
       this.isGrabbing = false;
-      this.animator?.onEdit(this.selectedShape.currentEditPoints);
+      this.onEditSelectedShape()
     }
   }
 }

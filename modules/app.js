@@ -53,7 +53,7 @@ export default class App {
     // select and highlight the newest draw shape
     this.selectedShape = shape;
     // set values to editor panal
-    this.editor.updatePropertiesValues(this.selectedShape)
+    this.editor.updatePropertiesValuesDisplay(this.selectedShape)
   }
 
   // life cycle methods
@@ -105,7 +105,7 @@ export default class App {
     this.selectedShape = shapes[selectedShapeIndex + 1];
     if(this.selectedShape){
       // set properties values to Properties/Editor panal
-      this.editor.updatePropertiesValues(this.selectedShape)
+      this.editor.updatePropertiesValuesDisplay(this.selectedShape)
     }
   }
 }

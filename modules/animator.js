@@ -7,7 +7,7 @@ export default class Animator {
   animationPane = $("#animation-pane");
 
   constructor(shapes) {
-    this.shapes = shapes
+    this.shapes = shapes;
   }
 
   setup() {
@@ -22,7 +22,7 @@ export default class Animator {
     if (this.isPlaying) {
       this.time = this.time + deltaTime / 100;
       this.slider.value(this.time);
-      this.updateShapeEditpoints()
+      this.updateShapeEditpoints();
       if (this.time > 100) {
         this.pause();
       }
@@ -37,25 +37,33 @@ export default class Animator {
     $(".selected-time").css("left", `${this.time}%`);
   }
 
-  onEdit(vertices) {
+  onEdit(vertices, properties) {
     if (this.selectedShape) {
       const selected = Object.keys(this.selectedShape.keyFrames).find(
         (key) => this.time - 3 < key && this.time + 3 > key
       );
-      if(selected){
-        this.selectedShape.keyFrames[selected] = _.cloneDeep(vertices)
+      if (selected) {
+        this.selectedShape.keyFrames[selected] = {
+          vertices: _.cloneDeep(vertices),
+          properties: _.cloneDeep(properties),
+        };
       } else {
-        this.selectedShape.keyFrames[this.time] = _.cloneDeep(vertices)
+        this.selectedShape.keyFrames[this.time] = {
+          vertices: _.cloneDeep(vertices),
+          properties: _.cloneDeep(properties),
+        };
       }
-      this.sync(this.selectedShape)
+      this.sync(this.selectedShape);
     }
   }
 
-  sync(shape){
-    $(`#${shape.name} .ticks`).remove()
-    Object.keys(shape.keyFrames).sort().forEach((key) => {
-      this.addTick(shape.name, 'ticks', key)
-    })
+  sync(shape) {
+    $(`#${shape.name} .ticks`).remove();
+    Object.keys(shape.keyFrames)
+      .sort()
+      .forEach((key) => {
+        this.addTick(shape.name, "ticks", key);
+      });
   }
 
   play() {
@@ -70,13 +78,17 @@ export default class Animator {
 
   handleSliderChange() {
     this.time = this.slider.value();
-    this.updateShapeEditpoints()
+    this.updateShapeEditpoints();
   }
 
-  updateShapeEditpoints(){
+  updateShapeEditpoints() {
     Object.values(this.shapes).forEach((shape) => {
-      shape.currentEditPoints = shape.getEditPoints(this.time)
-    })
+      shape.currentEditPoints = shape.getEditPoints(this.time);
+      shape.currentProperties = {
+        ...shape.currentProperties,
+        ...shape.getProperties(this.time),
+      };
+    });
   }
 
   addShapeToAnimatorBar(shape) {
@@ -93,9 +105,11 @@ export default class Animator {
     );
     // add current time ticks
     this.addTick(shape.name, "selected-time", this.time);
-    this.sync(shape)
-    shape.keyFrames[0] = shape.currentEditPoints
-
+    this.sync(shape);
+    shape.keyFrames[0] = {
+      vertices: shape.currentEditPoints,
+      properties: shape.currentProperties,
+    };
   }
 
   addTick(name, identifier, percent) {
