@@ -1,8 +1,9 @@
 // https://www.codehim.com/vanilla-javascript/javascript-drag-and-drop-reorder-list/#:~:text=How%20to%20create%20JavaScript%20Drag,elements%20you%20want%20to%20rearrangeable.
 
 export default class ObjectController {
-  constructor({ onOrderChange }) {
+  constructor({ onOrderChange, onKeyFrameDelete }) {
     this.onOrderChange = onOrderChange;
+    this.onKeyFrameDelete = onKeyFrameDelete;
     this.objectPanel = $("#animation-pane");
   }
 
@@ -51,10 +52,17 @@ export default class ObjectController {
       .sort()
       .forEach((key) => {
         $(`#${shape.name}-slider`).append(
-          `<div class='v-line ticks' style='left: ${
+          `<div name="${key}" class='v-line ticks' style='left: ${
             width * (key / 100)
           }px'><img width="20px" src="assets/key-frame.svg"/></div>`
         );
+        // delete the keyframe if user click on the keyframe
+        $(`#${shape.name}-slider div[name="${key}"]`).on("click", () => {
+          if (confirm("Are you sure you want to delete this keyframe?")) {
+            this.onKeyFrameDelete(shape.name, key) &&
+              $(`#${shape.name}-slider div[name="${key}"]`).remove();
+          }
+        });
       });
   }
 
@@ -89,6 +97,6 @@ export default class ObjectController {
     this.objectPanel
       .children()
       .each((i, c) => newObjOrder.push($(c).attr("id")));
-    this.onOrderChange(newObjOrder.reverse())
+    this.onOrderChange(newObjOrder.reverse());
   }
 }

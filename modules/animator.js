@@ -8,11 +8,23 @@ export default class Animator {
 
   constructor(shapes, displayOrder) {
     this.shapes = shapes;
-    this.displayOrder = displayOrder
+    this.displayOrder = displayOrder;
     // update the display order of shapes after drag and drop
-    this.objectController = new ObjectController({onOrderChange: (newOrder) => {
-      this.displayOrder.keys = newOrder
-    }});
+    this.objectController = new ObjectController({
+      onOrderChange: (newOrder) => {
+        // update the display order
+        this.displayOrder.keys = newOrder;
+      },
+      onKeyFrameDelete: (name, timeTick) => {
+        // delete the keyframe
+        if(Object.keys(this.shapes[name]?.keyFrames).length > 1){
+          delete this.shapes[name].keyFrames[timeTick]
+          return true
+        }
+        alert("You need at least one keyframe to run the app")
+        return false
+      }
+    });
     $("#play-btn").click(() => this.onPlayBtnClicked());
   }
 
@@ -28,10 +40,10 @@ export default class Animator {
     if (this.isPlaying) {
       this.advanceTime();
     }
-    $(".shape-slider").addClass('bg-norm');
-    $(".bg-active").removeClass('bg-active')
+    $(".shape-slider").addClass("bg-norm");
+    $(".bg-active").removeClass("bg-active");
     if (this.selectedShape) {
-      $(`#${this.selectedShape.name}-slider`).addClass('bg-active');
+      $(`#${this.selectedShape.name}-slider`).addClass("bg-active");
     }
   }
 
@@ -55,7 +67,7 @@ export default class Animator {
       this.isPlaying = false;
       $("#play-btn").children().first().attr("src", "assets/play.svg");
     }
-    this.objectController.updateCurrentTime(this.time)
+    this.objectController.updateCurrentTime(this.time);
   }
 
   updateShapeEditpoints() {
@@ -63,7 +75,7 @@ export default class Animator {
       shape.currentEditPoints = this.getEditPoints(shape, this.time);
       shape.currentProperties = {
         ...shape.currentProperties,
-        ...this.getProperties(shape,this.time),
+        ...this.getProperties(shape, this.time),
       };
     });
   }
@@ -71,7 +83,7 @@ export default class Animator {
   handleSliderChange() {
     this.time = this.slider.value();
     this.updateShapeEditpoints();
-    this.objectController.updateCurrentTime(this.time)
+    this.objectController.updateCurrentTime(this.time);
   }
 
   /* life cycle methods */
@@ -100,12 +112,12 @@ export default class Animator {
       vertices: shape.currentEditPoints,
       properties: shape.currentProperties,
     };
-    this.objectController.add(shape)
+    this.objectController.add(shape);
   }
 
-  removeShape(shape){
-    delete this.shapes[shape.name]
-    this.objectController.remove(shape)
+  removeShape(shape) {
+    delete this.shapes[shape.name];
+    this.objectController.remove(shape);
   }
 
   /* interpolation functions */
@@ -153,7 +165,7 @@ export default class Animator {
   }
 
   // calculate properties at each timeframe
-  getProperties(shape,t) {
+  getProperties(shape, t) {
     const timeTicks = Object.keys(shape.keyFrames).map((x) => parseInt(x, 10));
     timeTicks.sort((a, b) => a - b);
     const nextTickIndex = timeTicks.findIndex(

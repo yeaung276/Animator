@@ -131,7 +131,7 @@ html, body {
 	width: 20px;
 }
 .v-line:hover{
-	cursor: col-resize
+	cursor: default
 }
 
 .shape-animation-space {
