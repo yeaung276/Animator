@@ -108,6 +108,13 @@ html, body {
 }
 
 /* animations */
+#play-btn{
+	width: 5rem;
+	height: 2rem;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
 .animation-slider {
 	display: flex;
 	height: 30px;
@@ -119,8 +126,7 @@ html, body {
 
 .v-line {
 	position: absolute;
-	width: 5px;
-	background-color: red;
+	width: 20px;
 }
 .v-line:hover{
 	cursor: col-resize
@@ -129,4 +135,39 @@ html, body {
 .shape-animation-space {
 	height: 200px;
 	overflow-y: scroll;
+}
+
+.bg-norm {
+	background-color: #dfdfdf
+}
+
+.bg-active {
+	background-color: #6699CC
+}
+
+/* object control */
+ul {
+    margin: 0;
+    padding: 0;
+}
+
+li {
+    margin: 5px 0;
+    padding: 0 20px;
+    height: 40px;
+    line-height: 40px;
+    border-radius: 3px;
+    color: #fff;
+    list-style: none;
+}
+
+li.drag-sort-active {
+    background: transparent !important;
+    color: transparent !important;
+    border: 1px solid #4ca1af;
+}
+
+span.drag-sort-active {
+    background: transparent;
+    color: transparent;
 }

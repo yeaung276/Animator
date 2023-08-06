@@ -78,9 +78,11 @@ export default class Editor {
     return editPoints.find((v) => dist(v.x, v.y, mouseX, mouseY) < 10);
   }
 
-  // mouse lifecycle events
+  /* mouse lifecycle events */
+
   onEditSelectedShape(){
-    this.animator.onEdit(
+    // call animator edit function to add keyframe
+    this.animator.onShapeEdit(
       this.selectedShape.currentEditPoints,
       this.selectedShape.currentProperties
     );
