@@ -1,8 +1,8 @@
 import LineShape from "../shape/LineShape.js";
 import BaseToolClass from "./baseToolClass.js";
 
-export default class BasicShape extends BaseToolClass {
-    name = 'BasicShape'
+export default class LineTool extends BaseToolClass {
+    name = 'LineTool'
 
     icon = 'assets/lineTo.jpg'
 

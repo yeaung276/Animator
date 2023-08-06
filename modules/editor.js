@@ -26,6 +26,12 @@ export default class Editor {
         this.onEditSelectedShape()
       }
     });
+    this.fillColor.change((e) => {
+      this.selectedShape.currentProperties.fillColor = hexToRGB(
+        e.target.value
+      );
+      this.onEditSelectedShape()
+    })
     this.strokeWeight.change((e) => {
       if (this.selectedShape) {
         this.selectedShape.currentProperties.strokeWeight = e.target.value;

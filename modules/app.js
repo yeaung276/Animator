@@ -1,9 +1,9 @@
 import Animator from "./animator.js";
 import Editor from "./editor.js";
-import LineShape from "./shape/LineShape.js";
 import Toolbox from "./toolbox.js";
-import BasicShape from "./tools/basicShapeTool.js";
 import Controller from "./controller.js";
+import LineTool from "./tools/lineTool.js";
+import RectTool from "./tools/rectTool.js";
 
 export default class App {
   shapes = {};
@@ -19,7 +19,8 @@ export default class App {
   }
 
   setup() {
-    this.toolbox.addTool(new BasicShape());
+    this.toolbox.addTool(new LineTool());
+    this.toolbox.addTool(new RectTool());
     this.canvas = createCanvas(this.content.width(), this.content.height());
     this.canvas.parent("content");
 
