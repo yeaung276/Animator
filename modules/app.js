@@ -47,9 +47,10 @@ export default class App {
     this.animator.selectedShape = this.selectedShape;
     this.animator.update();
 
+    // draw the shape based on the display order specified by the animator panal
     this.displayOrder.keys.forEach((key) => {
       const obj = this.shapes[key]
-      obj.draw(obj.name === this.selectedShape?.name);
+      obj?.draw(obj.name === this.selectedShape?.name);
     });
 
     // reset selected shape to null if it is being deleted

@@ -45,6 +45,7 @@ export default class Animator {
     }
   }
 
+  // advance time when the animator is playing state
   advanceTime() {
     if (this.time < 100) {
       this.time = this.time + deltaTime / 100;
@@ -54,7 +55,6 @@ export default class Animator {
       this.isPlaying = false;
       $("#play-btn").children().first().attr("src", "assets/play.svg");
     }
-    $(".selected-time").css("left", `${this.time}%`);
     this.objectController.updateCurrentTime(this.time)
   }
 
@@ -71,6 +71,7 @@ export default class Animator {
   handleSliderChange() {
     this.time = this.slider.value();
     this.updateShapeEditpoints();
+    this.objectController.updateCurrentTime(this.time)
   }
 
   /* life cycle methods */
@@ -85,7 +86,7 @@ export default class Animator {
           properties: _.cloneDeep(properties),
         };
       } else {
-        this.selectedShape.keyFrames[this.time] = {
+        this.selectedShape.keyFrames[parseInt(this.time)] = {
           vertices: _.cloneDeep(vertices),
           properties: _.cloneDeep(properties),
         };
@@ -95,7 +96,7 @@ export default class Animator {
   }
 
   addShape(shape) {
-    shape.keyFrames[0] = {
+    shape.keyFrames[parseInt(this.time)] = {
       vertices: shape.currentEditPoints,
       properties: shape.currentProperties,
     };
