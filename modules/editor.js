@@ -16,6 +16,7 @@ export default class Editor {
     this.opacity = $("#opacity");
     this.strokeColor = $("#stroke-color");
     this.fillColor = $("#fill-color");
+    this.deleteBtn = $("#delete-shape");
     // change events
     this.strokeColor.change((e) => {
       if (this.selectedShape) {
@@ -49,6 +50,11 @@ export default class Editor {
         this.onEditSelectedShape()
       }
     });
+    this.deleteBtn.click(() => {
+      if(this.selectedShape){
+        this.animator.removeShape(this.selectedShape)
+      }
+    })
   }
 
   draw() {

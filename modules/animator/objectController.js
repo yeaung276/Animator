@@ -26,6 +26,10 @@ export default class ObjectController {
     this.syncKeyFrame(shape);
   }
 
+  remove(shape){
+    $(`#${shape.name}`).remove()
+  }
+
   updateCurrentTime(time) {
     const width = $(`.shape-slider`).width();
     $(".time-tick").remove();

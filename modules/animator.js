@@ -64,6 +64,11 @@ export default class Animator {
     });
   }
 
+  handleSliderChange() {
+    this.time = this.slider.value();
+    this.updateShapeEditpoints();
+  }
+
   /* life cycle methods */
   onShapeEdit(vertices, properties) {
     if (this.selectedShape) {
@@ -85,17 +90,17 @@ export default class Animator {
     }
   }
 
-  handleSliderChange() {
-    this.time = this.slider.value();
-    this.updateShapeEditpoints();
-  }
-
-  addShapeToAnimatorBar(shape) {
+  addShape(shape) {
     shape.keyFrames[0] = {
       vertices: shape.currentEditPoints,
       properties: shape.currentProperties,
     };
     this.objectController.add(shape)
+  }
+
+  removeShape(shape){
+    delete this.shapes[shape.name]
+    this.objectController.remove(shape)
   }
 
   /* interpolation functions */

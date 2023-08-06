@@ -45,11 +45,16 @@ export default class App {
     Object.values(this.shapes).forEach((obj) => {
       obj.draw(obj.name === this.selectedShape?.name);
     });
+
+    // reset selected shape to null if it is being deleted
+    if(this.shapes[this.selectedShape?.name] === undefined){
+      this.selectedShape = null
+    }
   }
 
   addShape(shape) {
     this.shapes[shape.name] = shape;
-    this.animator.addShapeToAnimatorBar(shape);
+    this.animator.addShape(shape);
     // select and highlight the newest draw shape
     this.selectedShape = shape;
     // set values to editor panal

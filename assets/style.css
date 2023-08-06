@@ -145,6 +145,14 @@ html, body {
 	background-color: #6699CC
 }
 
+.delete-btn{
+	width: 100%;
+	cursor: pointer;
+	height: 2rem;
+	color: white;
+	background-color: gray;
+}
+
 /* object control */
 ul {
     margin: 0;
