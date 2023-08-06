@@ -6,9 +6,13 @@ export default class Animator {
   isPlaying = false;
   selectedShape = null;
 
-  constructor(shapes) {
+  constructor(shapes, displayOrder) {
     this.shapes = shapes;
-    this.objectController = new ObjectController();
+    this.displayOrder = displayOrder
+    // update the display order of shapes after drag and drop
+    this.objectController = new ObjectController({onOrderChange: (newOrder) => {
+      this.displayOrder.keys = newOrder
+    }});
     $("#play-btn").click(() => this.onPlayBtnClicked());
   }
 

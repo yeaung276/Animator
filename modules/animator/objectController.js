@@ -1,18 +1,20 @@
 // https://www.codehim.com/vanilla-javascript/javascript-drag-and-drop-reorder-list/#:~:text=How%20to%20create%20JavaScript%20Drag,elements%20you%20want%20to%20rearrangeable.
 
 export default class ObjectController {
-  renderOrder = [];
-  constructor() {
+  constructor({ onOrderChange }) {
+    this.onOrderChange = onOrderChange;
     this.objectPanel = $("#animation-pane");
   }
 
   add(shape) {
-    this.objectPanel.append(
+    this.objectPanel.prepend(
       `<li class="animation-slider" id="${shape.name}" draggable="true"></div>`
     );
-    $(`#${shape.name}`).on("drag", this.handleDrag).on("dragend", this.handleDrop);
+    // append drag and drop listeners
+    $(`#${shape.name}`)
+      .on("drag", (e) => this.handleDrag(e))
+      .on("dragend", (e) => this.handleDrop(e));
 
-    this.renderOrder.push(shape.name);
     // append the name of the object
     $(`#${shape.name}`).append(
       `<div style="width: 100px;overflow: hidden" draggable="false">${shape.name}</div>`
@@ -26,11 +28,12 @@ export default class ObjectController {
     this.syncKeyFrame(shape);
   }
 
-  remove(shape){
-    $(`#${shape.name}`).remove()
+  remove(shape) {
+    $(`#${shape.name}`).remove();
   }
 
   updateCurrentTime(time) {
+    // update current time tick for all the object
     const width = $(`.shape-slider`).width();
     $(".time-tick").remove();
     $(".shape-slider").append(
@@ -41,6 +44,7 @@ export default class ObjectController {
   }
 
   syncKeyFrame(shape) {
+    // sync the keyFrame time tick for the given shape in the animator panel
     $(`#${shape.name} .ticks`).remove();
     const width = $(`#${shape.name}-slider`).width();
     Object.keys(shape.keyFrames)
@@ -63,7 +67,7 @@ export default class ObjectController {
     const y = event.clientY;
 
     selectedItem.classList.add("drag-sort-active");
-    $(selectedItem).children().addClass('drag-sort-active')
+    $(selectedItem).children().addClass("drag-sort-active");
     let swapItem =
       document.elementFromPoint(x, y) === null
         ? selectedItem
@@ -80,5 +84,11 @@ export default class ObjectController {
 
   handleDrop(item) {
     $(".drag-sort-active").removeClass("drag-sort-active");
+    // get new object drawing order and update it in the app.drawingOrder
+    const newObjOrder = [];
+    this.objectPanel
+      .children()
+      .each((i, c) => newObjOrder.push($(c).attr("id")));
+    this.onOrderChange(newObjOrder.reverse())
   }
 }

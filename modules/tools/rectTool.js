@@ -4,7 +4,7 @@ import BaseToolClass from "./baseToolClass.js";
 export default class RectTool extends BaseToolClass {
     name = 'RectTool'
 
-    icon = 'assets/lineTo.jpg'
+    icon = 'assets/rectangle.png'
 
     constructor(){
         super()

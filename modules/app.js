@@ -8,12 +8,16 @@ import RectTool from "./tools/rectTool.js";
 export default class App {
   shapes = {};
 
+  displayOrder = {
+    keys: []
+  }
+
   selectedShape = null;
 
   constructor() {
     this.content = $("#content");
     this.toolbox = new Toolbox();
-    this.animator = new Animator(this.shapes);
+    this.animator = new Animator(this.shapes, this.displayOrder);
     this.editor = new Editor(this.animator);
     this.controller = new Controller();
   }
@@ -43,7 +47,8 @@ export default class App {
     this.animator.selectedShape = this.selectedShape;
     this.animator.update();
 
-    Object.values(this.shapes).forEach((obj) => {
+    this.displayOrder.keys.forEach((key) => {
+      const obj = this.shapes[key]
       obj.draw(obj.name === this.selectedShape?.name);
     });
 
@@ -55,6 +60,7 @@ export default class App {
 
   addShape(shape) {
     this.shapes[shape.name] = shape;
+    this.displayOrder.keys.push(shape.name)
     this.animator.addShape(shape);
     // select and highlight the newest draw shape
     this.selectedShape = shape;
