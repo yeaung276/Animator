@@ -57,6 +57,11 @@ export default class BaseShapeClass {
     throw Error("Not implemented");
   }
 
+  // function to called when the shape is edited
+  onEdit(){
+    console.log("Edited")
+  }
+
   // function to check the object is clicked or not
   isClicked(x, y) {
     const { x: posX, width } = this.getX();

@@ -1,10 +1,10 @@
-import RectShape from "../shape/RectShape.js";
+import TrigShape from "../shape/TrigShape.js";
 import BaseToolClass from "./baseToolClass.js";
 
-export default class RectTool extends BaseToolClass {
-    name = 'RectTool'
+export default class TrigTool extends BaseToolClass {
+    name = 'TrigTool'
 
-    icon = 'assets/rectangle.png'
+    icon = 'assets/triangle.png'
 
     constructor(){
         super()
@@ -15,13 +15,21 @@ export default class RectTool extends BaseToolClass {
         push()
         fill(0,0,0,0)
         stroke(1)
+        push()
         drawingContext.setLineDash([5, 5]);
         rect(x,y,x_e-x,y_e-y)
+        pop()
+        beginShape()
+        vertex((x+x_e)/2, Math.min(y, y_e))
+        vertex(Math.min(x,x_e), Math.max(y,y_e))
+        vertex(Math.max(x,x_e), Math.max(y,y_e))
+        vertex((x+x_e)/2, Math.min(y, y_e))
+        endShape()
         pop()
     }
 
     // use polymorphism to overwrite the unimplemented createShape function
     createShape(x, y, x_e, y_e){
-        return new RectShape(uuid(),x,y,x_e,y_e)
+        return new TrigShape(uuid(),x,y,x_e,y_e)
     }
 }

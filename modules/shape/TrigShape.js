@@ -1,10 +1,11 @@
 import BaseShapeClass from "./BaseShapeClass.js";
 
-export default class LineShape extends BaseShapeClass {
+export default class TrigShape extends BaseShapeClass {
   constructor(name, x, y, x_e, y_e) {
     super(name, [
-      { x, y },
-      { x: x_e, y: y_e },
+      { x: (x + x_e) / 2, y: Math.min(y, y_e) },
+      { x: Math.min(x, x_e), y: Math.max(y, y_e) },
+      { x: Math.max(x, x_e), y: Math.max(y, y_e) },
     ]);
   }
 

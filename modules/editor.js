@@ -156,6 +156,7 @@ export default class Editor {
     if (this.isEditing && this.vertex) {
       this.isEditing = false;
       this.vertex = null;
+      this.selectedShape?.onEdit()
       this.onEditSelectedShape()
     }
     // moving the shapes

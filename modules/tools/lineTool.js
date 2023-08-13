@@ -10,6 +10,7 @@ export default class LineTool extends BaseToolClass {
         super()
     }
 
+    // use polymorphism to overwrite the unimplemented createPreview function
     createPreview(x, y, x_e, y_e){
         push()
         fill(0,0,0,0)
@@ -22,6 +23,7 @@ export default class LineTool extends BaseToolClass {
         pop()
     }
 
+    // use polymorphism to overwrite the unimplemented createShape function
     createShape(x, y, x_e, y_e){
         return new LineShape(uuid(),x,y,x_e,y_e)
     }

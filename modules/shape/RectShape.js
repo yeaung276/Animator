@@ -14,6 +14,7 @@ export default class RectShape extends BaseShapeClass {
     ]);
   }
 
+  // use polymorphism to overwrite the unimplemented drawShape function
   drawShape(vertices) {
     beginShape();
     vertices.forEach((v) => {

@@ -4,6 +4,8 @@ import Toolbox from "./toolbox.js";
 import Controller from "./controller.js";
 import LineTool from "./tools/lineTool.js";
 import RectTool from "./tools/rectTool.js";
+import TrigTool from "./tools/triangleTool.js";
+import CircTool from "./tools/circleTool.js";
 
 export default class App {
   shapes = {};
@@ -23,7 +25,9 @@ export default class App {
   }
 
   setup() {
+    this.toolbox.addTool(new CircTool());
     this.toolbox.addTool(new LineTool());
+    this.toolbox.addTool(new TrigTool());
     this.toolbox.addTool(new RectTool());
     this.canvas = createCanvas(this.content.width(), this.content.height());
     this.canvas.parent("content");
