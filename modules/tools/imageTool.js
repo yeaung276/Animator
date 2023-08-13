@@ -1,4 +1,4 @@
-import TrigShape from "../shape/trigShape.js";
+import ImageShape from "../shape/imageShape.js";
 import BaseToolClass from "./baseToolClass.js";
 
 export default class ImageTool extends BaseToolClass {
@@ -12,7 +12,7 @@ export default class ImageTool extends BaseToolClass {
 
   constructor() {
     super();
-    loadImage(this.imageURL, (img) => {
+    loadImage(this.defaultImageURL, (img) => {
       this.defaultImage = img;
     });
   }
@@ -32,6 +32,6 @@ export default class ImageTool extends BaseToolClass {
 
   // use polymorphism to overwrite the unimplemented createShape function
   createShape(x, y, x_e, y_e) {
-    return new TrigShape(uuid(), x, y, x_e, y_e);
+    return new ImageShape(uuid(), x, y, x_e, y_e, this.defaultImageURL);
   }
 }

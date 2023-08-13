@@ -1,3 +1,4 @@
+import { getMinMaxFromEditPoints } from "../helper.js";
 import BaseShapeClass from "./BaseShapeClass.js";
 
 export default class CircShape extends BaseShapeClass {
@@ -10,22 +11,8 @@ export default class CircShape extends BaseShapeClass {
     ]);
   }
 
-  getMinMax(vertices) {
-    let maxX = 0;
-    let minX = 9999;
-    let maxY = 0;
-    let minY = 9999;
-    for (var i = 0; i < vertices.length; i++) {
-      maxX = Math.max(maxX, vertices[i].x);
-      minX = Math.min(minX, vertices[i].x);
-      maxY = Math.max(maxY, vertices[i].y);
-      minY = Math.min(minY, vertices[i].y);
-    }
-    return { maxX, maxY, minX, minY };
-  }
-
   onEdit() {
-    const { maxX, maxY, minX, minY } = this.getMinMax(this.currentEditPoints);
+    const { maxX, maxY, minX, minY } = getMinMaxFromEditPoints(this.currentEditPoints);
     this.currentEditPoints = [
       { x: (minX + maxX) / 2, y: minY },
       { x: (minX + maxX) / 2, y: maxY },
@@ -36,7 +23,7 @@ export default class CircShape extends BaseShapeClass {
 
   // use polymorphism to overwrite the unimplemented drawShape function
   drawShape(vertices) {
-    const { maxX, maxY, minX, minY } = this.getMinMax(vertices);
+    const { maxX, maxY, minX, minY } = getMinMaxFromEditPoints(vertices);
     ellipse((maxX + minX) / 2, (maxY + minY) / 2, maxX - minX, maxY - minY);
   }
 }

@@ -1,0 +1,40 @@
+import { getMinMaxFromEditPoints } from "../helper.js";
+import BaseShapeClass from "./BaseShapeClass.js";
+
+export default class ImageShape extends BaseShapeClass {
+  image = null;
+
+  constructor(name, x, y, x_e, y_e, imageURL) {
+    super(name, [
+        { x: (x + x_e) / 2, y: Math.min(y, y_e) },
+        { x: (x + x_e) / 2, y: Math.max(y, y_e) },
+        { x: Math.min(x, x_e), y: (y + y_e) / 2 },
+        { x: Math.max(x, x_e), y: (y + y_e) / 2 },
+    ]);
+    this.loadImage(imageURL);
+  }
+
+  loadImage(url) {
+    loadImage(url, (img) => (this.image = img));
+  }
+
+  onEdit() {
+    const { minX, maxX, minY, maxY } = getMinMaxFromEditPoints(
+      this.currentEditPoints
+    );
+    this.currentEditPoints = [
+        { x: (minX + maxX) / 2, y: minY },
+        { x: (minX + maxX) / 2, y: maxY },
+        { x: minX, y: (minY + maxY) / 2 },
+        { x: maxX, y: (minY + maxY) / 2 },
+    ];
+  }
+
+  // use polymorphism to overwrite the unimplemented drawShape function
+  drawShape(vertices) {
+    const { maxX, maxY, minX, minY } = getMinMaxFromEditPoints(vertices);
+    if (this.image) {
+      image(this.image, minX, minY, maxX - minX, maxY - minY);
+    }
+  }
+}

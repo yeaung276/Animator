@@ -17,6 +17,7 @@ export default class Editor {
     this.strokeColor = $("#stroke-color");
     this.fillColor = $("#fill-color");
     this.deleteBtn = $("#delete-shape");
+    this.imageInput = $("#image-input");
     // change events
     this.strokeColor.change((e) => {
       if (this.selectedShape) {
@@ -59,6 +60,12 @@ export default class Editor {
         this.animator.removeShape(this.selectedShape);
       }
     });
+    // only for shape of type image
+    this.imageInput.change((e) => {
+      if(this.selectedShape && e.target.files){
+        this.selectedShape?.loadImage(URL.createObjectURL(e.target.files[0]))
+      }
+    })
   }
 
   draw() {
@@ -80,6 +87,11 @@ export default class Editor {
     this.strokeWeight.val(shape.currentProperties.strokeWeight);
     this.opacity.val(shape.currentProperties.opacity);
     this.strokeColor.val(rgbToHex(...shape.currentProperties.strokeColor));
+    if(shape.image === undefined){
+      this.imageInput.parent().hide()
+    } else {
+      this.imageInput.parent().show()
+    }
   }
 
   // get the vertex the mouse Hover

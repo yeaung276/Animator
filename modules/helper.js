@@ -13,3 +13,18 @@ export function hexToRGB(hex) {
 export function rgbToHex(r, g, b) {
   return "#" + ((1 << 24) | (r << 16) | (g << 8) | b).toString(16).slice(1);
 }
+// End of Color convertion functions
+
+export function getMinMaxFromEditPoints(vertices){
+    let maxX = 0;
+    let minX = 9999;
+    let maxY = 0;
+    let minY = 9999;
+    for (var i = 0; i < vertices.length; i++) {
+      maxX = Math.max(maxX, vertices[i].x);
+      minX = Math.min(minX, vertices[i].x);
+      maxY = Math.max(maxY, vertices[i].y);
+      minY = Math.min(minY, vertices[i].y);
+    }
+    return { maxX, maxY, minX, minY };
+}
