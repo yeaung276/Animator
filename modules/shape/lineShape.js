@@ -1,4 +1,4 @@
-import BaseShapeClass from "./BaseShapeClass.js";
+import BaseShapeClass from "./baseShapeClass.js";
 
 export default class LineShape extends BaseShapeClass {
   constructor(name, x, y, x_e, y_e) {

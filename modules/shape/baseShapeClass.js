@@ -90,7 +90,7 @@ export default class BaseShapeClass {
   }
 
   // this function is called at each drawing frame
-  draw(isSelected) {
+  draw(isSelected, time) {
     if (isSelected) {
       this.highLight(this.currentEditPoints);
     }
@@ -112,7 +112,7 @@ export default class BaseShapeClass {
       default:
         drawingContext.setLineDash([]);
     }
-    this.drawShape(this.currentEditPoints);
+    this.drawShape(this.currentEditPoints, time);
     pop();
   }
 }

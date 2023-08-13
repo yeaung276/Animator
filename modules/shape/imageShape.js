@@ -1,5 +1,5 @@
 import { getMinMaxFromEditPoints } from "../helper.js";
-import BaseShapeClass from "./BaseShapeClass.js";
+import BaseShapeClass from "./baseShapeClass.js";
 
 export default class ImageShape extends BaseShapeClass {
   image = null;

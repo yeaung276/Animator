@@ -7,6 +7,7 @@ import RectTool from "./tools/rectTool.js";
 import TrigTool from "./tools/triangleTool.js";
 import CircTool from "./tools/circleTool.js";
 import ImageTool from "./tools/imageTool.js";
+import DrawRecordTool from "./tools/drawRecordTool.js";
 
 export default class App {
   shapes = {};
@@ -31,6 +32,7 @@ export default class App {
     this.toolbox.addTool(new TrigTool());
     this.toolbox.addTool(new RectTool());
     this.toolbox.addTool(new ImageTool());
+    this.toolbox.addTool(new DrawRecordTool());
     this.canvas = createCanvas(this.content.width(), this.content.height());
     this.canvas.parent("content");
 
@@ -56,7 +58,7 @@ export default class App {
     // draw the shape based on the display order specified by the animator panal
     this.displayOrder.keys.forEach((key) => {
       const obj = this.shapes[key];
-      obj?.draw(obj.name === this.selectedShape?.name);
+      obj?.draw(obj.name === this.selectedShape?.name, this.animator.time);
     });
 
     // reset selected shape to null if it is being deleted

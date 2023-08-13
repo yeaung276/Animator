@@ -62,10 +62,10 @@ export default class Editor {
     });
     // only for shape of type image
     this.imageInput.change((e) => {
-      if(this.selectedShape && e.target.files){
-        this.selectedShape?.loadImage(URL.createObjectURL(e.target.files[0]))
+      if (this.selectedShape && e.target.files) {
+        this.selectedShape?.loadImage(URL.createObjectURL(e.target.files[0]));
       }
-    })
+    });
   }
 
   draw() {
@@ -87,10 +87,11 @@ export default class Editor {
     this.strokeWeight.val(shape.currentProperties.strokeWeight);
     this.opacity.val(shape.currentProperties.opacity);
     this.strokeColor.val(rgbToHex(...shape.currentProperties.strokeColor));
-    if(shape.image === undefined){
-      this.imageInput.parent().hide()
+    this.fillColor.val(rgbToHex(...shape.currentProperties.fillColor));
+    if (shape.image === undefined) {
+      this.imageInput.parent().hide();
     } else {
-      this.imageInput.parent().show()
+      this.imageInput.parent().show();
     }
   }
 

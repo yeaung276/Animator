@@ -1,6 +1,7 @@
 import ObjectController from "./animator/objectController.js";
 
-// delta time
+export const TICK_PER_MS = 0.01
+
 export default class Animator {
   time = 0;
   isPlaying = false;
@@ -60,7 +61,7 @@ export default class Animator {
   // advance time when the animator is playing state
   advanceTime() {
     if (this.time < 100) {
-      this.time = this.time + deltaTime / 100;
+      this.time = this.time + deltaTime * TICK_PER_MS;
       this.slider.value(this.time);
       this.updateShapeEditpoints();
     } else {
