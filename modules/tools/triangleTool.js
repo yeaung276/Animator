@@ -6,7 +6,8 @@ export default class TrigTool extends BaseToolClass {
 
   icon = "assets/triangle.png";
 
-  tooltip = "draw a triangle on the screen";
+  tooltip =
+    "Draw a triangle on the screen. Make sure to unselect the shape if a shape is selected before start drawing";
 
   constructor() {
     super();
