@@ -6,13 +6,14 @@ import LineTool from "./tools/lineTool.js";
 import RectTool from "./tools/rectTool.js";
 import TrigTool from "./tools/triangleTool.js";
 import CircTool from "./tools/circleTool.js";
+import ImageTool from "./tools/imageTool.js";
 
 export default class App {
   shapes = {};
 
   displayOrder = {
-    keys: []
-  }
+    keys: [],
+  };
 
   selectedShape = null;
 
@@ -29,6 +30,7 @@ export default class App {
     this.toolbox.addTool(new LineTool());
     this.toolbox.addTool(new TrigTool());
     this.toolbox.addTool(new RectTool());
+    this.toolbox.addTool(new ImageTool());
     this.canvas = createCanvas(this.content.width(), this.content.height());
     this.canvas.parent("content");
 
@@ -53,24 +55,24 @@ export default class App {
 
     // draw the shape based on the display order specified by the animator panal
     this.displayOrder.keys.forEach((key) => {
-      const obj = this.shapes[key]
+      const obj = this.shapes[key];
       obj?.draw(obj.name === this.selectedShape?.name);
     });
 
     // reset selected shape to null if it is being deleted
-    if(this.shapes[this.selectedShape?.name] === undefined){
-      this.selectedShape = null
+    if (this.shapes[this.selectedShape?.name] === undefined) {
+      this.selectedShape = null;
     }
   }
 
   addShape(shape) {
     this.shapes[shape.name] = shape;
-    this.displayOrder.keys.push(shape.name)
+    this.displayOrder.keys.push(shape.name);
     this.animator.addShape(shape);
     // select and highlight the newest draw shape
     this.selectedShape = shape;
     // set values to editor panal
-    this.editor.updatePropertiesValuesDisplay(this.selectedShape)
+    this.editor.updatePropertiesValuesDisplay(this.selectedShape);
   }
 
   // life cycle methods
@@ -102,7 +104,7 @@ export default class App {
 
   onMouseRelease(posX, posY) {
     if (this.selectedShape) {
-        this.editor.onRelease(posX, posY);
+      this.editor.onRelease(posX, posY);
     } else if (this.toolbox?.selectTool) {
       const shape = this.toolbox?.selectedTool?.onDrawEnd(posX, posY);
       // if drawing tool create a shape, add it to the globe shape object
@@ -120,9 +122,9 @@ export default class App {
       (shape) => shape.name === this.selectedShape?.name
     );
     this.selectedShape = shapes[selectedShapeIndex + 1];
-    if(this.selectedShape){
+    if (this.selectedShape) {
       // set properties values to Properties/Editor panal
-      this.editor.updatePropertiesValuesDisplay(this.selectedShape)
+      this.editor.updatePropertiesValuesDisplay(this.selectedShape);
     }
   }
 }

@@ -58,8 +58,8 @@ export default class BaseShapeClass {
   }
 
   // function to called when the shape is edited
-  onEdit(){
-    console.log("Edited")
+  onEdit() {
+    console.log("Edited");
   }
 
   // function to check the object is clicked or not

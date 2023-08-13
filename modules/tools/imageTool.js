@@ -1,13 +1,20 @@
-import CircShape from "../shape/circShape.js";
+import TrigShape from "../shape/trigShape.js";
 import BaseToolClass from "./baseToolClass.js";
 
-export default class CircTool extends BaseToolClass {
-  name = "CircTool";
+export default class ImageTool extends BaseToolClass {
+  name = "ImageTool";
 
-  icon = "assets/circle.png";
+  icon = "assets/image.png";
+
+  defaultImageURL = "assets/image.png";
+
+  defaultImage = null;
 
   constructor() {
     super();
+    loadImage(this.imageURL, (img) => {
+      this.defaultImage = img;
+    });
   }
 
   // use polymorphism to overwrite the unimplemented createPreview function
@@ -19,12 +26,12 @@ export default class CircTool extends BaseToolClass {
     drawingContext.setLineDash([5, 5]);
     rect(x, y, x_e - x, y_e - y);
     pop();
-    ellipse((x + x_e) / 2, (y + y_e) / 2, Math.abs(x - x_e), Math.abs(y - y_e));
+    image(this.defaultImage, x, y, x_e - x, y_e - y);
     pop();
   }
 
   // use polymorphism to overwrite the unimplemented createShape function
   createShape(x, y, x_e, y_e) {
-    return new CircShape(uuid(), x, y, x_e, y_e);
+    return new TrigShape(uuid(), x, y, x_e, y_e);
   }
 }

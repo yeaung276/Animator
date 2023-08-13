@@ -23,19 +23,17 @@ export default class Editor {
         this.selectedShape.currentProperties.strokeColor = hexToRGB(
           e.target.value
         );
-        this.onEditSelectedShape()
+        this.onEditSelectedShape();
       }
     });
     this.fillColor.change((e) => {
-      this.selectedShape.currentProperties.fillColor = hexToRGB(
-        e.target.value
-      );
-      this.onEditSelectedShape()
-    })
+      this.selectedShape.currentProperties.fillColor = hexToRGB(e.target.value);
+      this.onEditSelectedShape();
+    });
     this.strokeWeight.change((e) => {
       if (this.selectedShape) {
         this.selectedShape.currentProperties.strokeWeight = e.target.value;
-        this.onEditSelectedShape()
+        this.onEditSelectedShape();
       }
     });
     this.opacity.change((e) => {
@@ -47,20 +45,20 @@ export default class Editor {
           1,
           255
         );
-        this.onEditSelectedShape()
+        this.onEditSelectedShape();
       }
     });
     this.strokeStyle.change((e) => {
       if (this.selectedShape) {
         this.selectedShape.currentProperties.strokeStyle = e.target.value;
-        this.onEditSelectedShape()
+        this.onEditSelectedShape();
       }
     });
     this.deleteBtn.click(() => {
-      if(this.selectedShape){
-        this.animator.removeShape(this.selectedShape)
+      if (this.selectedShape) {
+        this.animator.removeShape(this.selectedShape);
       }
-    })
+    });
   }
 
   draw() {
@@ -92,7 +90,7 @@ export default class Editor {
 
   /* mouse lifecycle events */
 
-  onEditSelectedShape(){
+  onEditSelectedShape() {
     // call animator edit function to add keyframe
     this.animator.onShapeEdit(
       this.selectedShape.currentEditPoints,
@@ -156,13 +154,13 @@ export default class Editor {
     if (this.isEditing && this.vertex) {
       this.isEditing = false;
       this.vertex = null;
-      this.selectedShape?.onEdit()
-      this.onEditSelectedShape()
+      this.selectedShape?.onEdit();
+      this.onEditSelectedShape();
     }
     // moving the shapes
     if (this.isGrabbing && this.selectedShape) {
       this.isGrabbing = false;
-      this.onEditSelectedShape()
+      this.onEditSelectedShape();
     }
   }
 }

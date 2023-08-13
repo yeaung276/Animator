@@ -17,13 +17,13 @@ export default class Animator {
       },
       onKeyFrameDelete: (name, timeTick) => {
         // delete the keyframe
-        if(Object.keys(this.shapes[name]?.keyFrames).length > 1){
-          delete this.shapes[name].keyFrames[timeTick]
-          return true
+        if (Object.keys(this.shapes[name]?.keyFrames).length > 1) {
+          delete this.shapes[name].keyFrames[timeTick];
+          return true;
         }
-        alert("You need at least one keyframe to run the app")
-        return false
-      }
+        alert("You need at least one keyframe to run the app");
+        return false;
+      },
     });
     $("#play-btn").click(() => this.onPlayBtnClicked());
   }
