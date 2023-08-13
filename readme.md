@@ -12,6 +12,9 @@ https://www.codehim.com/vanilla-javascript/javascript-drag-and-drop-reorder-list
 icons
 https://icons8.com/
 
+tooltip
+https://www.w3schools.com/css/css_tooltip.asp#:~:text=A%20tooltip%20is%20often%20used,Left
+
 
 
 features

@@ -31,12 +31,17 @@ export default function Toolbox() {
   };
 
   //add a new tool icon to the html page
-  var addToolIcon = function (icon, name) {
+  var addToolIcon = function (icon, name, tooltip) {
     var sideBarItem = createDiv("<img src='" + icon + "'></div>");
-    sideBarItem.class("sideBarItem");
+    sideBarItem.class("sideBarItem tooltip");
     sideBarItem.id(name + "sideBarItem");
     sideBarItem.parent("sidebar");
     sideBarItem.mouseClicked(toolbarItemClick);
+	// For tooltip
+	// https://www.w3schools.com/css/css_tooltip.asp
+	var tooltipSpan = createSpan(tooltip)
+	tooltipSpan.class('tooltiptext')
+	sideBarItem.child(tooltipSpan)
   };
 
   //add a tool to the tools array
@@ -46,7 +51,7 @@ export default function Toolbox() {
       alert("make sure your tool has both a name and an icon");
     }
     this.tools.push(tool);
-    addToolIcon(tool.icon, tool.name);
+    addToolIcon(tool.icon, tool.name, tool.tooltip);
     //if no tool is selected (ie. none have been added so far)
     //make this tool the selected one.
     if (this.selectedTool == null) {

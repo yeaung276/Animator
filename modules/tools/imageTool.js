@@ -6,6 +6,9 @@ export default class ImageTool extends BaseToolClass {
 
   icon = "assets/image.png";
 
+  tooltip =
+    "draw an image the screen. You can edit the image in the properties panel";
+
   defaultImageURL = "assets/image.png";
 
   defaultImage = null;

@@ -6,6 +6,8 @@ export default class CircTool extends BaseToolClass {
 
   icon = "assets/circle.png";
 
+  tooltip = "draw circle and ellipse on the screen";
+
   constructor() {
     super();
   }

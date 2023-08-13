@@ -181,3 +181,32 @@ span.drag-sort-active {
     background: transparent;
     color: transparent;
 }
+
+/* Tooltip css */
+/* Copied from: https://www.w3schools.com/css/css_tooltip.asp */
+/* Tooltip container */
+.tooltip {
+	display: inline-block;
+  }
+  
+  /* Tooltip text */
+  .tooltip .tooltiptext {
+	visibility: hidden;
+	width: 300px;
+	background-color: gray;
+	color: #fff;
+	text-align: center;
+	padding: 5px 0;
+	border-radius: 6px;
+   
+	/* Position the tooltip text - see examples below! */
+	position: absolute;
+	z-index: 1;
+  }
+  
+  /* Show the tooltip text when you mouse over the tooltip container */
+  .tooltip:hover .tooltiptext {
+	visibility: visible;
+	overflow-wrap: break-word;
+	font-size: 1rem;
+  }

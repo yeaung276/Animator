@@ -6,6 +6,8 @@ export default class RectTool extends BaseToolClass {
 
   icon = "assets/rectangle.png";
 
+  tooltip = "draw a rectangle on the screen";
+
   constructor() {
     super();
   }

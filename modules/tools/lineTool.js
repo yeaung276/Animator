@@ -6,6 +6,8 @@ export default class LineTool extends BaseToolClass {
 
   icon = "assets/lineTo.jpg";
 
+  tooltip = "draw a line on the screen";
+
   constructor() {
     super();
   }
