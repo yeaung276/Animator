@@ -2,6 +2,8 @@ dependencies
 uuid
 jquery
 p5js
+lodash
+CCapture
 
 hexToRGB 
 https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
@@ -23,6 +25,10 @@ https://stackoverflow.com/questions/31693296/is-it-possible-to-make-a-button-as-
 
 File reader
 https://web.dev/read-files/#:~:text=To%20read%20a%20file%2C%20use,a%20data%20URL%2C%20or%20text.&text=%2F%2F%20Check%20if%20the%20file%20is%20an%20image.
+
+Exporting to video
+https://editor.p5js.org/NanoDano/sketches/Wm8T-UvED
+https://stackoverflow.com/questions/42437971/exporting-a-video-in-p5-js
 
 features
 

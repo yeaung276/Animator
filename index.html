@@ -1,78 +1,85 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <script src="lib/p5.min.js"></script>
-    <script src="lib/p5.dom.js"></script>
-    <script src="lib/uuid.min.js"></script>
-    <script src="lib/jquery-3.7.0.min.js"></script>
-    <script src="lib/lodash.min.js"></script>
 
-    <script type="module" src="sketch.js"></script>
+<head>
+  <script src="lib/p5.min.js"></script>
+  <script src="lib/p5.dom.js"></script>
+  <script src="lib/uuid.min.js"></script>
+  <script src="lib/jquery-3.7.0.min.js"></script>
+  <script src="lib/lodash.min.js"></script>
 
-    <script src="sprayCanTool.js"></script>
-    <script src="mirrorDrawTool.js"></script>
+  <script type="module" src="sketch.js"></script>
 
-    <link rel="stylesheet" type="text/css" href="assets/style.css">
-  </head>
-  <body>
-  	<div class="wrapper">
-      <div class="box header">
-        <div> 
-          <span class="title">Animator</span>
-          <span>
-            <button class="ribbon-btn" id="clear-btn">Clear</button>
-            <button class="ribbon-btn" id="save-proj">Save Project</button>
-            <button class="ribbon-btn" id="load-proj">Load Project</button>
-            <input type="file" accept="application/json" id="load-proj-file" hidden />
-            <button class="ribbon-btn" id="export">Export</button>
-          </span>
-        </div>
+  <script src="sprayCanTool.js"></script>
+  <script src="mirrorDrawTool.js"></script>
+
+  <link rel="stylesheet" type="text/css" href="assets/style.css">
+</head>
+
+<body>
+  <div class="wrapper">
+    <div class="box header">
+      <div>
+        <span class="title">Animator</span>
+        <span>
+          <button class="ribbon-btn" id="clear-btn">Clear</button>
+          <button class="ribbon-btn" id="save-proj">Save Project</button>
+          <button class="ribbon-btn" id="load-proj">Load Project</button>
+          <input type="file" accept="application/json" id="load-proj-file" hidden />
+          <button class="ribbon-btn" id="export">Export</button>
+        </span>
       </div>
-      <div class="box sidebar" id="sidebar"></div>
-      <div id="content"></div>
-      <div class="properties" id="properties">
-        <div style="text-align: center;font-weight: bold">Properties</div>
-        <div class="properties-field">
-          <label>Stroke style</label><br/>
-          <select id="stroke-style">
-            <option value="solid">Solid</option>
-            <option value="dash">Dash</option>
-            <option value="dotted">Dotted</option>
-          </select>
-        </div>
-        <div class="properties-field">
-          <label>Stroke weight</label>
-          <input id="stroke-weight" type="number" />
-        </div>
-        <div class="properties-field">
-          <label>Opacity</label>
-          <input id="opacity" type="range" />
-        </div>
-        <div class="properties-field justify-between">
-          <label>Stroke color</label>
-          <input id="stroke-color" type="color" />
-        </div>
-        <div class="properties-field justify-between">
-          <label>Fill color</label>
-          <input id="fill-color" type="color" />
-        </div>
-        <div hidden class="properties-field">
-          <label>Image</label><br/>
-          <input id="image-input" type="file" multiple="false" accept="image/*" />
-        </div>
-        <button class="delete-btn" id="delete-shape">Delete Selected Shape</button>
+    </div>
+    <div class="box sidebar" id="sidebar"></div>
+    <div id="content"></div>
+    <div class="properties" id="properties">
+      <div style="text-align: center;font-weight: bold">Properties</div>
+      <div class="properties-field">
+        <label>Stroke style</label><br />
+        <select id="stroke-style">
+          <option value="solid">Solid</option>
+          <option value="dash">Dash</option>
+          <option value="dotted">Dotted</option>
+        </select>
       </div>
-      <div class="box options">
-        <div class="animation-slider">
-          <div>
-            <button id="play-btn"><img width="20" src="assets/play.svg" /></button>
-          </div>
-          <div class="slider" id="slider"></div>
+      <div class="properties-field">
+        <label>Stroke weight</label>
+        <input id="stroke-weight" type="number" />
+      </div>
+      <div class="properties-field">
+        <label>Opacity</label>
+        <input id="opacity" type="range" />
+      </div>
+      <div class="properties-field justify-between">
+        <label>Stroke color</label>
+        <input id="stroke-color" type="color" />
+      </div>
+      <div class="properties-field justify-between">
+        <label>Fill color</label>
+        <input id="fill-color" type="color" />
+      </div>
+      <div hidden class="properties-field">
+        <label>Image</label><br />
+        <input id="image-input" type="file" multiple="false" accept="image/*" />
+      </div>
+      <button class="delete-btn" id="delete-shape">Delete Selected Shape</button>
+    </div>
+    <div class="box options">
+      <div class="animation-slider">
+        <div>
+          <button id="play-btn"><img width="20" src="assets/play.svg" /></button>
         </div>
-        <ul class="shape-animation-space" id="animation-pane">
+        <div class="slider" id="slider"></div>
+      </div>
+      <ul class="shape-animation-space" id="animation-pane">
 
-        </ul>
-      </div>
-	</div>
-  </body>
+      </ul>
+    </div>
+  </div>
+  <div id="loading" class="loading">
+    <div id="video"></div>
+    <button id="loading-close">Close</button>
+  </div>
+</body>
+
 </html>

@@ -9,8 +9,13 @@ import CircTool from "./tools/circleTool.js";
 import ImageTool from "./tools/imageTool.js";
 import DrawRecordTool from "./tools/drawRecordTool.js";
 import { getShapeBySaveObject } from "./helper.js";
+import { Recorder } from "./recorder.js";
+
+export const FRAME_RATE = 60;
 
 export default class App {
+  exporting = false;
+
   shapes = {};
 
   displayOrder = {
@@ -25,6 +30,7 @@ export default class App {
     this.animator = new Animator(this.shapes, this.displayOrder);
     this.editor = new Editor(this.animator);
     this.controller = new Controller();
+    this.recorder = new Recorder();
   }
 
   setup() {
@@ -38,6 +44,7 @@ export default class App {
     this.canvas.parent("content");
 
     this.animator.setup();
+    this.recorder.setup(this.canvas)
 
     this.controller.setup(this.canvas);
     this.controller.onMousePressed((x, y) => this.onMousePressed(x, y));
@@ -55,13 +62,16 @@ export default class App {
     });
     $("#load-proj").on("click", () => {
       // https://stackoverflow.com/questions/31693296/is-it-possible-to-make-a-button-as-file-upload-button
-      $("#load-proj-file").click()
-    })
-    $("#load-proj-file").on('change', (e) => {
-      if(e.target.files){
-        this.loadProject(e.target.files[0])
+      $("#load-proj-file").click();
+    });
+    $("#load-proj-file").on("change", (e) => {
+      if (e.target.files) {
+        this.loadProject(e.target.files[0]);
       }
-    })
+    });
+    $("#export").on("click", () => {
+      this.export();
+    });
   }
 
   draw() {
@@ -82,6 +92,12 @@ export default class App {
     // reset selected shape to null if it is being deleted
     if (this.shapes[this.selectedShape?.name] === undefined) {
       this.selectedShape = null;
+    }
+
+    // stop recording if animator is no longer playing
+    if(this.exporting && !this.animator.isPlaying){
+      this.recorder.stop()
+      this.exporting = false
     }
   }
 
@@ -108,11 +124,14 @@ export default class App {
   saveProject() {
     // save the current shapes, searialize using json and save the file
     const project = {
-      shapes: Object.keys(this.shapes).reduce((p,v) => ({...p,[v]: this.shapes[v].toJsonObj()}),{}),
+      shapes: Object.keys(this.shapes).reduce(
+        (p, v) => ({ ...p, [v]: this.shapes[v].toJsonObj() }),
+        {}
+      ),
       displayOrder: this.displayOrder,
     };
     // https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
-    try{
+    try {
       var dataStr =
         "data:text/json;charset=utf-8," +
         encodeURIComponent(JSON.stringify(project));
@@ -120,31 +139,41 @@ export default class App {
       dlAnchorElem.setAttribute("href", dataStr);
       dlAnchorElem.setAttribute("download", "project.json");
       dlAnchorElem.click();
-    } catch(e){
-      alert("Error saving project file.")
-      console.error(e)
+    } catch (e) {
+      alert("Error saving project file.");
+      console.error(e);
     }
   }
 
-  loadProject(file){
+  loadProject(file) {
     // read the file using FileReader
     // https://web.dev/read-files
     const reader = new FileReader();
-    reader.addEventListener('load', (event) => {
-      try{
-        const project = JSON.parse(event.target.result)
-        this.displayOrder = project.displayOrder
+    reader.addEventListener("load", (event) => {
+      try {
+        const project = JSON.parse(event.target.result);
+        this.displayOrder = project.displayOrder;
         Object.keys(project.shapes).forEach((s) => {
-          this.shapes[s] = getShapeBySaveObject(project.shapes[s])
+          this.shapes[s] = getShapeBySaveObject(project.shapes[s]);
           this.animator.addShape(this.shapes[s], true);
-        })
-      } catch(e){
-        alert("Error reading file or file is corrupted")
-        console.error(e)
+        });
+      } catch (e) {
+        alert("Error reading file or file is corrupted");
+        console.error(e);
       }
-      
     });
     reader.readAsText(file);
+  }
+
+  export() {
+    if (!this.exporting) {
+      // setting up the app state for recording
+      this.selectedShape = null;
+      this.animator.time = 0;
+      this.animator.isPlaying = true;
+      this.exporting = true;
+      this.recorder.start()
+    }
   }
 
   // life cycle methods
