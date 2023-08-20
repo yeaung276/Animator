@@ -2,6 +2,8 @@ import { getMinMaxFromEditPoints } from "../helper.js";
 import BaseShapeClass from "./baseShapeClass.js";
 
 export default class CircShape extends BaseShapeClass {
+  type = "circle";
+
   constructor(name, x, y, x_e, y_e) {
     super(name, [
       { x: (x + x_e) / 2, y: Math.min(y, y_e) },

@@ -1,102 +1,102 @@
-html, body {
+html,
+body {
   margin: 0px;
   height: 100%;
 }
 
 #sidebar {
-	grid-area: sidebar;
-	overflow-y: scroll;
+  grid-area: sidebar;
+  overflow-y: scroll;
 }
 
 #content {
-	grid-area: content;
+  grid-area: content;
 }
 
-.footer{
+.footer {
   grid-area: footer;
 }
 
-.sideBarItem{
-	height: 50px;
-	width: 50px;
-	padding:5px;
-	background-color: white;
-	margin-top: .5rem;
+.sideBarItem {
+  height: 50px;
+  width: 50px;
+  padding: 5px;
+  background-color: white;
+  margin-top: 0.5rem;
 }
 
-.sideBarItem img{
-	height: 50px;
-	Width:50px;
+.sideBarItem img {
+  height: 50px;
+  width: 50px;
 }
 
-.colourPalette{
-	grid-area: colourP;
-	display:flex;
-	flex-direction:grid;
-	flex-flow: wrap;
+.colourPalette {
+  grid-area: colourP;
+  display: flex;
+  flex-direction: grid;
+  flex-flow: wrap;
 }
 
-.options{
-	grid-area: options;
-	padding: 15px;
+.options {
+  grid-area: options;
+  padding: 15px;
 }
 
-.colourSwatches{
-	box-sizing: border-box;
-	width: 40px;
-	height: 40px;
-	max-height: 40px;
-	max-width: 40px;
-	margin: 5px;
+.colourSwatches {
+  box-sizing: border-box;
+  width: 40px;
+  height: 40px;
+  max-height: 40px;
+  max-width: 40px;
+  margin: 5px;
 }
-
 
 .wrapper {
-	display: grid;
-	height: 100%;
-	grid-template-columns: 100px 150px minmax(500px, 1fr) 230px;
-	grid-template-rows: 50px minmax(500px, 1fr) 250px;
-	grid-template-areas:
-			"header header header header"
-			"sidebar content content properties"
-			"options options options options";
-	background-color: #fff;
-	color: #444;
+  display: grid;
+  height: 100%;
+  grid-template-columns: 100px 150px minmax(500px, 1fr) 230px;
+  grid-template-rows: 50px minmax(500px, 1fr) 250px;
+  grid-template-areas:
+    "header header header header"
+    "sidebar content content properties"
+    "options options options options";
+  background-color: #fff;
+  color: #444;
 }
 
 .header {
-	padding: .5rem;
-	grid-area: header;
-	font-family: Helvetica, sans-serif
+  padding: 0.5rem;
+  grid-area: header;
+  font-family: Helvetica, sans-serif;
 }
 
 .sidebar {
-	display: flex;
-	flex-direction:column;
-	align-items: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .properties {
-	border: solid 1px grey;
-	background-color: #dfdfdf;
-	padding: 1rem;
+  border: solid 1px grey;
+  background-color: #dfdfdf;
+  padding: 1rem;
 }
 
-.properties input{
-	padding: .3rem;
+.properties input {
+  padding: 0.3rem;
 }
-.properties select{
-	padding: .3rem;
-	width: 100%;
+.properties select {
+  padding: 0.3rem;
+  width: 100%;
 }
 
-.properties-field{
+.properties-field {
   margin: 1rem 0;
 }
 
-.justify-between{
-	display: flex;
-	justify-content: space-between;
+.justify-between {
+  display: flex;
+  justify-content: space-between;
 }
 
 .box {
@@ -110,103 +110,112 @@ html, body {
 }
 
 /* animations */
-#play-btn{
-	width: 5rem;
-	height: 2rem;
-	display: flex;
-	align-items: center;
-	justify-content: center;
+#play-btn {
+  width: 5rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 .animation-slider {
-	display: flex;
-	height: 30px;
-	margin-bottom: .3rem
+  display: flex;
+  height: 30px;
+  margin-bottom: 0.3rem;
 }
 .animation-slider .slider {
-	flex-grow: 1;
+  flex-grow: 1;
 }
 
 .v-line {
-	position: absolute;
-	width: 20px;
+  position: absolute;
+  width: 20px;
 }
-.v-line:hover{
-	cursor: default
+.v-line:hover {
+  cursor: default;
 }
 
 .shape-animation-space {
-	height: 200px;
-	overflow-y: scroll;
+  height: 200px;
+  overflow-y: scroll;
 }
 
 .bg-norm {
-	background-color: #dfdfdf
+  background-color: #dfdfdf;
 }
 
 .bg-active {
-	background-color: #6699CC
+  background-color: #6699cc;
 }
 
-.delete-btn{
-	width: 100%;
-	cursor: pointer;
-	height: 2rem;
-	color: white;
-	background-color: gray;
+.delete-btn {
+  width: 100%;
+  cursor: pointer;
+  height: 2rem;
+  color: white;
+  background-color: gray;
 }
 
 /* object control */
 ul {
-    margin: 0;
-    padding: 0;
+  margin: 0;
+  padding: 0;
 }
 
 li {
-    margin: 5px 0;
-    padding: 0 20px;
-    height: 40px;
-    line-height: 40px;
-    border-radius: 3px;
-    color: #fff;
-    list-style: none;
+  margin: 5px 0;
+  padding: 0 20px;
+  height: 40px;
+  line-height: 40px;
+  border-radius: 3px;
+  color: #fff;
+  list-style: none;
 }
 
 li.drag-sort-active {
-    background: transparent !important;
-    color: transparent !important;
-    border: 1px solid #4ca1af;
+  background: transparent !important;
+  color: transparent !important;
+  border: 1px solid #4ca1af;
 }
 
 span.drag-sort-active {
-    background: transparent;
-    color: transparent;
+  background: transparent;
+  color: transparent;
 }
 
 /* Tooltip css */
 /* Copied from: https://www.w3schools.com/css/css_tooltip.asp */
 /* Tooltip container */
 .tooltip {
-	display: inline-block;
-  }
-  
-  /* Tooltip text */
-  .tooltip .tooltiptext {
-	visibility: hidden;
-	width: 300px;
-	background-color: gray;
-	color: #fff;
-	text-align: center;
-	padding: 5px 0;
-	border-radius: 6px;
-   
-	/* Position the tooltip text - see examples below! */
-	position: absolute;
-	z-index: 1;
-  }
-  
-  /* Show the tooltip text when you mouse over the tooltip container */
-  .tooltip:hover .tooltiptext {
-	visibility: visible;
-	overflow-wrap: break-word;
+  display: inline-block;
+}
+
+/* Tooltip text */
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 300px;
+  background-color: gray;
+  color: #fff;
+  text-align: center;
+  padding: 5px 0;
+  border-radius: 6px;
+
+  /* Position the tooltip text - see examples below! */
+  position: absolute;
+  z-index: 1;
+}
+
+/* Show the tooltip text when you mouse over the tooltip container */
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  overflow-wrap: break-word;
+  font-size: 1rem;
+}
+/* End of tooltip classes */
+.title{
+	font-size: 1.5rem;
+	font-weight: bold;
+}
+.ribbon-btn{
+	padding: .5rem;
 	font-size: 1rem;
-  }
+}

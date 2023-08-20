@@ -63,7 +63,11 @@ export default class Editor {
     // only for shape of type image
     this.imageInput.change((e) => {
       if (this.selectedShape && e.target.files) {
-        this.selectedShape?.loadImage(URL.createObjectURL(e.target.files[0]));
+          let reader = new FileReader();
+          reader.onload = () => {
+              this.selectedShape?.loadImage(reader.result);
+          }
+          reader.readAsDataURL(e.target.files[0]);
       }
     });
   }

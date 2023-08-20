@@ -1,6 +1,8 @@
 import BaseShapeClass from "./baseShapeClass.js";
 
 export default class RectShape extends BaseShapeClass {
+  type = "rect";
+  
   constructor(name, x, y, x_e, y_e) {
     const minX = Math.min(x, x_e);
     const maxX = Math.max(x, x_e);

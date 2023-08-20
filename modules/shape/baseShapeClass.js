@@ -3,6 +3,8 @@
 export default class BaseShapeClass {
   name;
 
+  type;
+
   currentEditPoints = [];
 
   currentProperties = {
@@ -114,5 +116,23 @@ export default class BaseShapeClass {
     }
     this.drawShape(this.currentEditPoints, time);
     pop();
+  }
+
+  // this function will be called with we load the shapes from saved file
+  fromSaveFile(obj){
+    this.name = obj.name
+    this.currentEditPoints = obj.currentEditPoints
+    this.currentProperties = obj.currentProperties
+    this.keyFrames = obj.keyFrames
+  }
+
+  toJsonObj(){
+    return {
+      name: this.name,
+      type: this.type,
+      currentEditPoints: this.currentEditPoints,
+      currentProperties: this.currentProperties,
+      keyFrames: this.keyFrames,
+    }
   }
 }

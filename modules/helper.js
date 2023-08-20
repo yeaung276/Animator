@@ -1,3 +1,10 @@
+import CircShape from "./shape/circShape.js";
+import DrawRecordShape from "./shape/drawRecordShape.js";
+import ImageShape from "./shape/imageShape.js";
+import LineShape from "./shape/lineShape.js";
+import RectShape from "./shape/rectShape.js";
+import TrigShape from "./shape/trigShape.js";
+
 // source: https://stackoverflow.com/questions/5623838/rgb-to-hex-and-hex-to-rgb
 export function hexToRGB(hex) {
   var result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
@@ -27,4 +34,33 @@ export function getMinMaxFromEditPoints(vertices){
       minY = Math.min(minY, vertices[i].y);
     }
     return { maxX, maxY, minX, minY };
+}
+
+export function getShapeBySaveObject(obj){
+  switch(obj.type){
+    case "circle":
+      const cshape = new CircShape(obj.name,0,0,0,0)
+      cshape.fromSaveFile(obj)
+      return cshape
+    case "drawRecord":
+      const dshape = new DrawRecordShape(obj.name,[])
+      dshape.fromSaveFile(obj)
+      return dshape
+    case "image":
+      const ishape = new ImageShape(obj.name,0,0,0,0)
+      ishape.fromSaveFile(obj)
+      return ishape
+    case "line":
+      const lshape = new LineShape(obj.name,0,0,0,0)
+      lshape.fromSaveFile(obj)
+      return lshape
+    case "rect":
+      const rshape = new RectShape(obj.name,0,0,0,0)
+      rshape.fromSaveFile(obj)
+      return rshape
+    case "trig":
+      const tshape = new TrigShape(obj.name,0,0,0,0)
+      tshape.fromSaveFile(obj)
+      return tshape
+  }
 }

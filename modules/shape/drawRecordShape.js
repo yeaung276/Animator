@@ -3,6 +3,8 @@ import { getMinMaxFromEditPoints } from "../helper.js";
 import BaseShapeClass from "./baseShapeClass.js";
 
 export default class DrawRecordShape extends BaseShapeClass {
+  type = "drawRecord";
+
   points = [];
 
   constructor(name, points) {
@@ -56,6 +58,18 @@ export default class DrawRecordShape extends BaseShapeClass {
         .filter((x) => x.t < progress)
         .forEach((p) => vertex(p.x + c_x, p.y + c_y));
       endShape();
+    }
+  }
+
+  fromSaveFile(obj){
+    super.fromSaveFile(obj)
+    this.points = obj.points
+  }
+
+  toJsonObj(){
+    return {
+      ...super.toJsonObj(),
+      points: this.points,
     }
   }
 }

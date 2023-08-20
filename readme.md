@@ -15,7 +15,14 @@ https://icons8.com/
 tooltip
 https://www.w3schools.com/css/css_tooltip.asp#:~:text=A%20tooltip%20is%20often%20used,Left
 
+Downloading and saving json file
+https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
 
+Uploading the json file for loading the project
+https://stackoverflow.com/questions/31693296/is-it-possible-to-make-a-button-as-file-upload-button
+
+File reader
+https://web.dev/read-files/#:~:text=To%20read%20a%20file%2C%20use,a%20data%20URL%2C%20or%20text.&text=%2F%2F%20Check%20if%20the%20file%20is%20an%20image.
 
 features
 

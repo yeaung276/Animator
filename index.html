@@ -9,13 +9,6 @@
 
     <script type="module" src="sketch.js"></script>
 
-    <!-- add extra scripts below -->
-    <!-- <script src="toolbox.js"></script> -->
-    <!-- <script src="colourPalette.js"></script> -->
-    <!-- <script src="helperFunctions.js"></script> -->
-
-    <!-- <script src="freehandTool.js"></script> -->
-    <!-- <script src="lineToTool.js"></script> -->
     <script src="sprayCanTool.js"></script>
     <script src="mirrorDrawTool.js"></script>
 
@@ -24,12 +17,16 @@
   <body>
   	<div class="wrapper">
       <div class="box header">
-        <span>Animator</span>
-        <span>
-          <button id="clearButton">Clear</button>
-          <button id="saveImageButton">Save Image</button>
-          <button id="example-btn">Example</button>
-        </span>
+        <div> 
+          <span class="title">Animator</span>
+          <span>
+            <button class="ribbon-btn" id="clear-btn">Clear</button>
+            <button class="ribbon-btn" id="save-proj">Save Project</button>
+            <button class="ribbon-btn" id="load-proj">Load Project</button>
+            <input type="file" accept="application/json" id="load-proj-file" hidden />
+            <button class="ribbon-btn" id="export">Export</button>
+          </span>
+        </div>
       </div>
       <div class="box sidebar" id="sidebar"></div>
       <div id="content"></div>

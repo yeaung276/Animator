@@ -8,6 +8,7 @@ import TrigTool from "./tools/triangleTool.js";
 import CircTool from "./tools/circleTool.js";
 import ImageTool from "./tools/imageTool.js";
 import DrawRecordTool from "./tools/drawRecordTool.js";
+import { getShapeBySaveObject } from "./helper.js";
 
 export default class App {
   shapes = {};
@@ -44,6 +45,23 @@ export default class App {
     this.controller.onMouseDragged((x, y) => this.onMouseHold(x, y));
     this.controller.onDoubleClicked((x, y) => this.onDoubleClicked(x, y));
     this.controller.onHover((x, y) => this.onHover(x, y));
+
+    // attach onClick events for the button in the ribbon
+    $("#clear-btn").on("click", () => {
+      this.clearShapes();
+    });
+    $("#save-proj").on("click", () => {
+      this.saveProject();
+    });
+    $("#load-proj").on("click", () => {
+      // https://stackoverflow.com/questions/31693296/is-it-possible-to-make-a-button-as-file-upload-button
+      $("#load-proj-file").click()
+    })
+    $("#load-proj-file").on('change', (e) => {
+      if(e.target.files){
+        this.loadProject(e.target.files[0])
+      }
+    })
   }
 
   draw() {
@@ -75,6 +93,58 @@ export default class App {
     this.selectedShape = shape;
     // set values to editor panal
     this.editor.updatePropertiesValuesDisplay(this.selectedShape);
+  }
+
+  clearShapes() {
+    // clear all the drawn shapes from the canvas
+    this.displayOrder = { keys: [] };
+    this.selectedShape = null;
+    this.animator.clearShapes();
+    Object.keys(this.shapes).forEach((s) => {
+      delete this.shapes[s];
+    });
+  }
+  // project control methods
+  saveProject() {
+    // save the current shapes, searialize using json and save the file
+    const project = {
+      shapes: Object.keys(this.shapes).reduce((p,v) => ({...p,[v]: this.shapes[v].toJsonObj()}),{}),
+      displayOrder: this.displayOrder,
+    };
+    // https://stackoverflow.com/questions/19721439/download-json-object-as-a-file-from-browser
+    try{
+      var dataStr =
+        "data:text/json;charset=utf-8," +
+        encodeURIComponent(JSON.stringify(project));
+      var dlAnchorElem = document.createElement("a");
+      dlAnchorElem.setAttribute("href", dataStr);
+      dlAnchorElem.setAttribute("download", "project.json");
+      dlAnchorElem.click();
+    } catch(e){
+      alert("Error saving project file.")
+      console.error(e)
+    }
+  }
+
+  loadProject(file){
+    // read the file using FileReader
+    // https://web.dev/read-files
+    const reader = new FileReader();
+    reader.addEventListener('load', (event) => {
+      try{
+        const project = JSON.parse(event.target.result)
+        this.displayOrder = project.displayOrder
+        Object.keys(project.shapes).forEach((s) => {
+          this.shapes[s] = getShapeBySaveObject(project.shapes[s])
+          this.animator.addShape(this.shapes[s], true);
+        })
+      } catch(e){
+        alert("Error reading file or file is corrupted")
+        console.error(e)
+      }
+      
+    });
+    reader.readAsText(file);
   }
 
   // life cycle methods

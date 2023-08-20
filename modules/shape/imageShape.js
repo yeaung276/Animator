@@ -2,6 +2,8 @@ import { getMinMaxFromEditPoints } from "../helper.js";
 import BaseShapeClass from "./baseShapeClass.js";
 
 export default class ImageShape extends BaseShapeClass {
+  type = "image";
+
   image = null;
 
   constructor(name, x, y, x_e, y_e, imageURL) {
@@ -11,10 +13,13 @@ export default class ImageShape extends BaseShapeClass {
         { x: Math.min(x, x_e), y: (y + y_e) / 2 },
         { x: Math.max(x, x_e), y: (y + y_e) / 2 },
     ]);
-    this.loadImage(imageURL);
+    if(imageURL){
+      this.loadImage(imageURL);
+    }
   }
 
   loadImage(url) {
+    this.imgUrl = url
     loadImage(url, (img) => (this.image = img));
   }
 
@@ -35,6 +40,18 @@ export default class ImageShape extends BaseShapeClass {
     const { maxX, maxY, minX, minY } = getMinMaxFromEditPoints(vertices);
     if (this.image) {
       image(this.image, minX, minY, maxX - minX, maxY - minY);
+    }
+  }
+
+  fromSaveFile(obj){
+    super.fromSaveFile(obj)
+    this.loadImage(obj.imageUrl)
+  }
+
+  toJsonObj(){
+    return {
+      ...super.toJsonObj(),
+      imageUrl: this.imgUrl
     }
   }
 }

@@ -108,17 +108,29 @@ export default class Animator {
     }
   }
 
-  addShape(shape) {
-    shape.keyFrames[parseInt(this.time)] = {
-      vertices: shape.currentEditPoints,
-      properties: shape.currentProperties,
-    };
+  addShape(shape, skipInitialKeyFrame = false) {
+    if(!skipInitialKeyFrame){
+      shape.keyFrames[parseInt(this.time)] = {
+        vertices: shape.currentEditPoints,
+        properties: shape.currentProperties,
+      };
+    }
     this.objectController.add(shape);
   }
 
   removeShape(shape) {
     delete this.shapes[shape.name];
     this.objectController.remove(shape);
+  }
+
+  clearShapes(){
+    Object.keys(this.shapes).forEach((s) => {
+      this.removeShape(this.shapes[s])
+      delete this.shapes[s]
+    })
+    this.displayOrder = {
+      keys: [],
+    }
   }
 
   /* interpolation functions */

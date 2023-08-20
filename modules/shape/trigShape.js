@@ -1,6 +1,8 @@
 import BaseShapeClass from "./baseShapeClass.js";
 
 export default class TrigShape extends BaseShapeClass {
+  type = "trig"
+  
   constructor(name, x, y, x_e, y_e) {
     super(name, [
       { x: (x + x_e) / 2, y: Math.min(y, y_e) },
