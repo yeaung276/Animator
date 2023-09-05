@@ -71,6 +71,8 @@ export default class Animator {
     this.objectController.updateCurrentTime(this.time);
   }
 
+  // update currentEditPoints based on intepolated values. This function is used for
+  // animating the shapes when slider value change.
   updateShapeEditpoints() {
     Object.values(this.shapes).forEach((shape) => {
       shape.currentEditPoints = this.getEditPoints(shape, this.time);
@@ -108,6 +110,7 @@ export default class Animator {
     }
   }
 
+  // add the shape. When a shape is added, initial key frame is also added
   addShape(shape, skipInitialKeyFrame = false) {
     if(!skipInitialKeyFrame){
       shape.keyFrames[parseInt(this.time)] = {
@@ -123,6 +126,7 @@ export default class Animator {
     this.objectController.remove(shape);
   }
 
+  // clear the shapes in the animation panal
   clearShapes(){
     Object.keys(this.shapes).forEach((s) => {
       this.removeShape(this.shapes[s])
@@ -134,6 +138,11 @@ export default class Animator {
   }
 
   /* interpolation functions */
+  /* This method accept the shape and current time t
+   * It then look for previous and next keyFrame based on t
+   * Use linear interpolation to calculate what x,y and other properties should be
+   * based on the next and previous value.
+   */
   // calculate editPoint at Each timeframe
   getEditPoints(shape, t) {
     const timeTicks = Object.keys(shape.keyFrames).map((x) => parseInt(x, 10));
@@ -145,6 +154,7 @@ export default class Animator {
     const previousTick = timeTicks[nextTickIndex - 1];
 
     const interPolatedVertices = [];
+    // finding prev and next keyframe
     for (var i = 0; i < shape.currentEditPoints.length; i++) {
       const prev = shape.keyFrames[previousTick];
       const next = shape.keyFrames[nextTick];
@@ -156,6 +166,7 @@ export default class Animator {
         interPolatedVertices.push(vertex);
         continue;
       }
+      // interpolaing
       const vertex = {
         x: map(
           t,
@@ -181,6 +192,7 @@ export default class Animator {
   getProperties(shape, t) {
     const timeTicks = Object.keys(shape.keyFrames).map((x) => parseInt(x, 10));
     timeTicks.sort((a, b) => a - b);
+    // finding next and previous ticks
     const nextTickIndex = timeTicks.findIndex(
       (x) => parseInt(x, 10) > parseInt(t)
     );
@@ -194,6 +206,7 @@ export default class Animator {
       interPolatedProperties =
         shape.keyFrames[timeTicks[timeTicks.length - 1]].properties;
     } else {
+      // interpolating
       interPolatedProperties = {
         strokeWeight: map(
           t,

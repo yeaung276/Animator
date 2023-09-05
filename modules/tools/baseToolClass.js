@@ -7,7 +7,7 @@ export default class BaseToolClass {
   // icon to show in the side bar
   icon;
 
-  // function to create preview object while drawing with mouse
+  // function to create preview object while drawing with mouse(before mouse release)
   createPreview(startX, startY, endX, endY) {
     throw Error("Function not implemented");
   }

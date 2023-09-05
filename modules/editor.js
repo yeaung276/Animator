@@ -10,6 +10,7 @@ export default class Editor {
   isGrabbing = false;
 
   constructor(animator) {
+    // initialize elements in editor panal
     this.animator = animator;
     this.strokeStyle = $("#stroke-style");
     this.strokeWeight = $("#stroke-weight");
@@ -86,6 +87,7 @@ export default class Editor {
     }
   }
 
+  // update properties values in the edit panal to the selected shape value when a shape is selected.
   updatePropertiesValuesDisplay(shape) {
     this.strokeStyle.val(shape.currentProperties.strokeStyle);
     this.strokeWeight.val(shape.currentProperties.strokeWeight);
@@ -107,6 +109,7 @@ export default class Editor {
 
   /* mouse lifecycle events */
 
+  // call the animator shapeEdit function to add new keyFrame and record the changes
   onEditSelectedShape() {
     // call animator edit function to add keyframe
     this.animator.onShapeEdit(

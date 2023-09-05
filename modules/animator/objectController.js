@@ -66,16 +66,20 @@ export default class ObjectController {
       });
   }
 
-  // These functions are copied from
-  // https://www.codehim.com/vanilla-javascript/javascript-drag-and-drop-reorder-list
+  /* Drag and drop feature for changing display order of the shapes
+   * These functions are copied from
+   * https://www.codehim.com/vanilla-javascript/javascript-drag-and-drop-reorder-list
+   */
   handleDrag(item) {
     const selectedItem = item.target;
     const list = selectedItem.parentNode;
     const x = event.clientX;
     const y = event.clientY;
 
+    // start dragging
     selectedItem.classList.add("drag-sort-active");
     $(selectedItem).children().addClass("drag-sort-active");
+    // swap whenever mouse is over the item
     let swapItem =
       document.elementFromPoint(x, y) === null
         ? selectedItem
@@ -86,6 +90,7 @@ export default class ObjectController {
         swapItem !== selectedItem.nextSibling
           ? swapItem.parentNode
           : swapItem.parentNode.nextSibling;
+      // insert it before the item of the current cursor position
       list.insertBefore(selectedItem, swapItem);
     }
   }

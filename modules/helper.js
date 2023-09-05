@@ -36,7 +36,9 @@ export function getMinMaxFromEditPoints(vertices){
     return { maxX, maxY, minX, minY };
 }
 
+// Load project functions
 export function getShapeBySaveObject(obj){
+  // based on type from the saved json project file, dedicated Shape object is returned.
   switch(obj.type){
     case "circle":
       const cshape = new CircShape(obj.name,0,0,0,0)

@@ -1,3 +1,4 @@
+// Abstract away keyboard and mouse actions
 export default class Controller {
   isMouseKeyPressed = false;
 

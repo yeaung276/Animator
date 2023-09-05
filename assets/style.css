@@ -68,6 +68,9 @@ body {
   padding: 0.5rem;
   grid-area: header;
   font-family: Helvetica, sans-serif;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 .sidebar {
@@ -204,6 +207,12 @@ span.drag-sort-active {
   z-index: 1;
 }
 
+.tooltip-left{
+  top: 40px;
+  bottom: auto;
+  right: 0%;
+}
+
 /* Show the tooltip text when you mouse over the tooltip container */
 .tooltip:hover .tooltiptext {
   visibility: visible;
@@ -237,4 +246,10 @@ span.drag-sort-active {
 
 #loading-close{
   padding: 1rem;
+}
+
+.help{
+  padding: .3rem 3rem .3rem 3rem;
+  background-color: #326ada;
+  cursor: default;
 }

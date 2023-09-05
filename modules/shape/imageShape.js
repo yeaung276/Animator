@@ -23,6 +23,8 @@ export default class ImageShape extends BaseShapeClass {
     loadImage(url, (img) => (this.image = img));
   }
 
+  // image has different logic of calculating currentEditPoint 
+  // then the rest. So this function is polymorphed
   onEdit() {
     const { minX, maxX, minY, maxY } = getMinMaxFromEditPoints(
       this.currentEditPoints
@@ -43,11 +45,13 @@ export default class ImageShape extends BaseShapeClass {
     }
   }
 
+  // deserialization of image base64 encoded string.
   fromSaveFile(obj){
     super.fromSaveFile(obj)
     this.loadImage(obj.imageUrl)
   }
 
+  // serialization of image base64 encoded string
   toJsonObj(){
     return {
       ...super.toJsonObj(),

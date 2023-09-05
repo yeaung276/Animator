@@ -10,9 +10,6 @@
 
   <script type="module" src="sketch.js"></script>
 
-  <script src="sprayCanTool.js"></script>
-  <script src="mirrorDrawTool.js"></script>
-
   <link rel="stylesheet" type="text/css" href="assets/style.css">
 </head>
 
@@ -27,6 +24,19 @@
           <button class="ribbon-btn" id="load-proj">Load Project</button>
           <input type="file" accept="application/json" id="load-proj-file" hidden />
           <button class="ribbon-btn" id="export">Export</button>
+        </span>
+      </div>
+      <div class="help tooltip">Help
+        <span style="width: 500px;" class="tooltiptext tooltip-left">
+          <div style="font-size: 1.5rem;font-weight:bold">Help</div>
+          <div style="font-size: 1.2rem; text-align:left;padding:1rem">
+            Clear button clear the shape in the canvas.<br/><br/>
+            Save project save the whole project in json format.<br/><br/>
+            Load project load the save project into the canvas.<br/><br/>
+            Export button export the project into video format. It use browser video tag.<br/><br/>
+            There is already example project saved for you in the project directory. You can load it using Load project button.<br/><br/>
+            In case you cannot draw any shape, try double clicking on the canvas to unselected the selected shape. It is explicitly coded to not draw the shapes while there is one shape selected.
+          </div>
         </span>
       </div>
     </div>

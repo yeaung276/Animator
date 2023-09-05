@@ -61,6 +61,8 @@ export default class DrawRecordShape extends BaseShapeClass {
     }
   }
 
+  // custom serilization logics
+
   fromSaveFile(obj){
     super.fromSaveFile(obj)
     this.points = obj.points
